@@ -4,7 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.HeadlessException;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.net.URL;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -38,14 +43,23 @@ public class MainWindow extends JFrame{
 	}
 	
 	private void initFrame() {
+		//Optional set LookAndFeel
 		ScreenUtils.setLookAndFeel();
+		//Frame title
 		this.frame = new JFrame("___Tic-Tac-Toe___");
-		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//Frame initial size
 		this.frame.setSize(1024, 768);
-		this.frame = ScreenUtils.windowCentered(frame);       
+		//Gets the Frame to the center of the screen
+		this.frame = ScreenUtils.windowCentered(frame);
+		//Sets a layout to the Frame
 		this.frame.setLayout(new BorderLayout());
-
+		//Close Operation
+		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		//Initializes the BannerPanel
         initBannerPanel(this.frame);
+        
+        //Initializes the contnent Panel
         initContentPanel(this.frame);
 
         //frame.pack();
@@ -56,7 +70,7 @@ public class MainWindow extends JFrame{
 	
 	private void initBannerPanel(JFrame frame) {
 		this.bannerPanel = new BannerPanel().getPanel();
-        frame.getContentPane().add(bannerPanel,BorderLayout.NORTH);
+        this.frame.getContentPane().add(bannerPanel,BorderLayout.NORTH);
 	}
 	
 	
@@ -78,7 +92,7 @@ public class MainWindow extends JFrame{
         this.contentsPanel.add(this.contentsLeftPanel,BorderLayout.WEST);
         this.contentsPanel.add(this.contentsMiddlePanel,BorderLayout.CENTER);
 		
-		frame.getContentPane().add(contentsPanel,BorderLayout.CENTER);
+		this.frame.getContentPane().add(contentsPanel,BorderLayout.CENTER);
 	
 	}
 	
