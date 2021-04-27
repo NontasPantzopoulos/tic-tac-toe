@@ -53,27 +53,28 @@ public class BoardCell  extends JPanel implements MouseListener {
 
 	}
 
-	
+	@Override
 	protected void paintComponent(Graphics g) {
-		
-		
+		super.paintComponent(g);
+		this.setBorder(new LineBorder(Color.DARK_GRAY, 1));
 
-		
-//		Graphics2D g2d = (Graphics2D) g;
-//		int size = 1024 - 2 * CELL_PADDING;
-//		g2d.setStroke(new BasicStroke(6));
-//		if (mark == null) {
-//			if (highlighted) {
-//				g2d.setColor(Color.LIGHT_GRAY);
-//				g2d.fillRect(CELL_PADDING, CELL_PADDING, size, size);
-//			}
-//			return;
-//		} else if (mark.equals("X")) {
-//			g2d.drawLine(CELL_PADDING, CELL_PADDING, CELL_PADDING + size, CELL_PADDING + size);
-//			g2d.drawLine(CELL_PADDING + size, CELL_PADDING, CELL_PADDING, CELL_PADDING + size);
-//		} else {
-//			g2d.drawOval(CELL_PADDING, CELL_PADDING, size, size);
-//		}
+		//String mark = getModel().getBoardMark(this.row, this.col);
+		String mark = "X";
+		Graphics2D g2d = (Graphics2D) g;
+		int size = 1024 - 2 * CELL_PADDING;
+		g2d.setStroke(new BasicStroke(6));
+		if (mark == null) {
+			if (highlighted) {
+				g2d.setColor(Color.LIGHT_GRAY);
+				g2d.fillRect(CELL_PADDING, CELL_PADDING, size, size);
+			}
+			return;
+		} else if (mark.equals("X")) {
+			g2d.drawLine(CELL_PADDING, CELL_PADDING, CELL_PADDING + size, CELL_PADDING + size);
+			g2d.drawLine(CELL_PADDING + size, CELL_PADDING, CELL_PADDING, CELL_PADDING + size);
+		} else {
+			g2d.drawOval(CELL_PADDING, CELL_PADDING, size, size);
+		}
 
 	}
 

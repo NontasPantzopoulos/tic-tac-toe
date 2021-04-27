@@ -44,7 +44,7 @@ public class MainWindow extends JFrame{
 	
 	private void initFrame() {
 		//Optional set LookAndFeel
-		ScreenUtils.setLookAndFeel();
+		//ScreenUtils.setLookAndFeel();
 		//Frame title
 		this.frame = new JFrame("___Tic-Tac-Toe___");
 		//Frame initial size
@@ -81,7 +81,7 @@ public class MainWindow extends JFrame{
 		
 		this.contentsMiddlePanel = new JPanel();
         this.contentsMiddlePanel.setLayout(new CardLayout());
-        this.contentsMiddlePanel.add(new GameBoard().getPanel(),GAMEBOARD);
+        this.contentsMiddlePanel.add(new GameBoard(),GAMEBOARD);
         this.contentsMiddlePanel.add(new HallOfFame().getPanel(),HALLOFFAME);
         showCard(GAMEBOARD);
         this.contentsLeftPanel=new PlayerPanel().getPanel();

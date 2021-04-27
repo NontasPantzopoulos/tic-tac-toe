@@ -17,12 +17,12 @@ public class ScreenUtils {
 	}
 	
 	public static void setLookAndFeel() {
-//		GeneralUtils.log("ScreenUtils","Setting Look and Feel:"+UIManager.getSystemLookAndFeelClassName());
-//		try {
-//			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//	    } catch(Exception e) {
-//	        System.out.println("Error setting native LAF: " + e);
-//	    }
+		GeneralUtils.log("ScreenUtils","Setting Look and Feel:"+UIManager.getSystemLookAndFeelClassName());
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+	    } catch(Exception e) {
+	        System.out.println("Error setting native LAF: " + e);
+	    }
 	}
 
 }
