@@ -1,5 +1,5 @@
 package main.tictactoe.model;
 
-public class PlayerHistory {
+public class GameEngine {
 
 }
