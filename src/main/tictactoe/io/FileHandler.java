@@ -20,7 +20,7 @@ public class FileHandler {
 			fileIn.close();
 			return playerRoster;
 		} catch (Exception e) {
-			e.printStackTrace();
+			GeneralUtils.log("FileHandler", "Game file not found at users profile");
 		}
 		return null;
 	}
