@@ -82,7 +82,7 @@ public class MainWindow extends JFrame{
 		this.contentsMiddlePanel = new JPanel();
         this.contentsMiddlePanel.setLayout(new CardLayout());
         this.contentsMiddlePanel.add(new GameBoard(),GAMEBOARD);
-        this.contentsMiddlePanel.add(new HallOfFame().getPanel(),HALLOFFAME);
+        this.contentsMiddlePanel.add(new HallOfFame(),HALLOFFAME);
         showCard(GAMEBOARD);
         this.contentsLeftPanel=new PlayerPanel().getPanel();
         this.contentsRightPanel=new PlayerPanel().getPanel();

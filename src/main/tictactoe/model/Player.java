@@ -1,7 +1,9 @@
 package main.tictactoe.model;
 
+import java.io.Serializable;
 
-public class Player {
+@SuppressWarnings("serial")
+public class Player implements Serializable{
 	private String name;
 	private int totalGames;
 	private int wins;

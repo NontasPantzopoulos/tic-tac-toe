@@ -1,5 +1,6 @@
 package main.tictactoe.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -11,13 +12,19 @@ import java.util.stream.Collectors;
 
 import main.tictactoe.utils.GeneralUtils;
 
-public class PlayerRoster {
+@SuppressWarnings("serial")
+public class PlayerRoster implements Serializable{
 	private HashMap<String,Player> players;
 
 	public PlayerRoster() {
 		this.players = new HashMap<>();
 	}
 	
+	/**
+	 * This method adds a player to the HashMap<String,Player>.
+	 * Before saving, checks if the given name already exists.
+	 * @param p
+	 */
 	public void addPlayer(Player p) {
 		Optional<Player> tempPlayer = Optional.ofNullable(this.players.get(p.getName()));
 		if(!tempPlayer.isPresent()) {
@@ -28,6 +35,10 @@ public class PlayerRoster {
 		}
 	}
 	
+	/**
+	 * This method returns an array with all the names of players.
+	 * @return ArrayList<String>
+	 */
 	public ArrayList<String> findPlayerNames() {
 		ArrayList<String> playernames = new ArrayList<>();
 		//Through the HashMap
@@ -37,10 +48,20 @@ public class PlayerRoster {
 		return playernames;
 	}
 	
+	/**
+	 * Finds a player by its name.
+	 * @param name
+	 * @return Player
+	 */
 	public Player findPlayerByName(String name) {
 		return this.players.get(name);
 	}
 	
+	/**
+	 * This method returns the best n players of the Players Roster. 
+	 * @param n
+	 * @return Player[]
+	 */
 	public Player[] findHallOfFame(int n){
 		//Array of players of size n
 		Player[] players = new Player[n];
