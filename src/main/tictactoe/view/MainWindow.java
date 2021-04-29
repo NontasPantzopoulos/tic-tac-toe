@@ -14,8 +14,10 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import main.tictactoe.model.GameEngine;
 import main.tictactoe.utils.ScreenUtils;
 
+@SuppressWarnings("serial")
 public class MainWindow extends JFrame{
 	
 	private JFrame frame;
@@ -24,12 +26,14 @@ public class MainWindow extends JFrame{
 	private JPanel contentsLeftPanel;
 	private JPanel contentsRightPanel;
 	private JPanel contentsMiddlePanel;
+	private GameEngine ge;
 	
-	private static final String HALLOFFAME = "HALLOFFAME";
-	private static final String GAMEBOARD = "GAMEBOARD";
+	private static final String HOF = "HALLOFFAME";
+	private static final String GB = "GAMEBOARD";
 	
 
-	public MainWindow() throws HeadlessException {
+	public MainWindow(GameEngine ge) throws HeadlessException {
+		this.setGe(ge);
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 	        public void run() {
 	            try {
@@ -41,6 +45,7 @@ public class MainWindow extends JFrame{
 	    });	
 		
 	}
+	
 	
 	private void initFrame() {
 		//Optional set LookAndFeel
@@ -69,7 +74,7 @@ public class MainWindow extends JFrame{
 	}
 	
 	private void initBannerPanel(JFrame frame) {
-		this.bannerPanel = new BannerPanel().getPanel();
+		this.bannerPanel = new BannerPanel(this.ge);
         this.frame.getContentPane().add(bannerPanel,BorderLayout.NORTH);
 	}
 	
@@ -81,11 +86,11 @@ public class MainWindow extends JFrame{
 		
 		this.contentsMiddlePanel = new JPanel();
         this.contentsMiddlePanel.setLayout(new CardLayout());
-        this.contentsMiddlePanel.add(new GameBoard(),GAMEBOARD);
-        this.contentsMiddlePanel.add(new HallOfFame(),HALLOFFAME);
-        showCard(GAMEBOARD);
-        this.contentsLeftPanel=new PlayerPanel().getPanel();
-        this.contentsRightPanel=new PlayerPanel().getPanel();
+        this.contentsMiddlePanel.add(new GameBoard(this.ge),GB);
+        this.contentsMiddlePanel.add(new HallOfFame(this.ge),HOF);
+        showCard(HOF);
+        this.contentsLeftPanel=new PlayerPanel(this.ge);
+        this.contentsRightPanel=new PlayerPanel(this.ge);
         
         
         this.contentsPanel.add(this.contentsRightPanel,BorderLayout.EAST);
@@ -153,11 +158,21 @@ public class MainWindow extends JFrame{
 	}
 
 	public static String getHalloffame() {
-		return HALLOFFAME;
+		return HOF;
 	}
 
 	public static String getGameboard() {
-		return GAMEBOARD;
+		return GB;
+	}
+
+
+	public GameEngine getGe() {
+		return ge;
+	}
+
+
+	public void setGe(GameEngine ge) {
+		this.ge = ge;
 	}
 	
 	

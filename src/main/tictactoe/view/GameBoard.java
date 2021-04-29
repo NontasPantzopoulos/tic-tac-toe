@@ -14,14 +14,19 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import main.tictactoe.model.GameEngine;
+
+
+
 
 
 @SuppressWarnings("serial")
 public class GameBoard extends JPanel{
+	private GameEngine ge;
 	
 	
-	
-	public GameBoard() {
+	public GameBoard(GameEngine ge) {
+		this.setGe(ge);
 		initComponents();
 	}
 
@@ -32,25 +37,28 @@ public class GameBoard extends JPanel{
 		this.setBorder(new EmptyBorder(50, 50, 50, 50) );
 		this.setLayout(new GridLayout(3,3));
 		
-		for (int row=0; row< 3; row++) {
-			for (int col=0; col< 3; col++) {
-				BoardCell cell = new BoardCell(row, col);
-				cell.setBounds(
-						boardZero().x+col*cellSize()+BoardCell.CELL_PADDING,
-						boardZero().y+row*cellSize()+BoardCell.CELL_PADDING,
-						cellSize()-2*BoardCell.CELL_PADDING,
-						cellSize()-2*BoardCell.CELL_PADDING
-						);
-				this.add(cell);
-				//System.out.println(cell.getBounds());
-			}
-		}	
+		
+		
+//		for (int row=0; row< 3; row++) {
+//			for (int col=0; col< 3; col++) {
+//				BoardCell cell = new BoardCell(row, col);
+//				cell.setBounds(
+//						boardZero().x+col*cellSize()+BoardCell.CELL_PADDING,
+//						boardZero().y+row*cellSize()+BoardCell.CELL_PADDING,
+//						cellSize()-2*BoardCell.CELL_PADDING,
+//						cellSize()-2*BoardCell.CELL_PADDING
+//						);
+//				this.add(cell);
+//				//System.out.println(cell.getBounds());
+//			}
+//		}	
 	}
 	
 	/** 
 	 * Computes the cell size along with paddings (min Panel dimension / 5) */
 	private int cellSize() {
 		int minDim = Integer.min(this.getWidth(),this.getHeight());
+		
 		return minDim/5;
 	}
 
@@ -95,6 +103,16 @@ public class GameBoard extends JPanel{
 					);
 		}
 		
+	}
+
+
+	public GameEngine getGe() {
+		return ge;
+	}
+
+
+	public void setGe(GameEngine ge) {
+		this.ge = ge;
 	}
 	
 	

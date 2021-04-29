@@ -8,27 +8,27 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import main.tictactoe.controller.BannerPanelController;
+import main.tictactoe.model.GameEngine;
 import main.tictactoe.utils.GeneralUtils;
 
+@SuppressWarnings("serial")
 public class BannerPanel extends JPanel{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 2612401090647440592L;
-	private JPanel panel; 
+	
 	private JPanel leftSubPanel;
 	private JPanel middleJPanel;
+	private GameEngine ge;
 	private BannerPanelController bannerPanelController;
 
-	public BannerPanel() {
+	public BannerPanel(GameEngine ge) {
+		this.setGe(ge);
 		this.bannerPanelController = new BannerPanelController();
 		initComponents();
 	}
 	
 	private void initComponents() {
-		this.panel= new JPanel();
-		this.panel.setLayout(new BorderLayout());
-		this.panel.setBackground(Color.WHITE);
+		
+		this.setLayout(new BorderLayout());
+		this.setBackground(Color.WHITE);
 	
 		
 		this.leftSubPanel = new JPanel();
@@ -40,20 +40,13 @@ public class BannerPanel extends JPanel{
 		this.middleJPanel.setBackground(Color.WHITE);
 		this.middleJPanel.add(createButton("Done"));
 		
-		this.panel.add(leftSubPanel, BorderLayout.WEST);
-		this.panel.add(middleJPanel,BorderLayout.CENTER);
-		this.panel.setName("BannerPanel");
-		this.panel.addMouseListener(this.bannerPanelController);
+		this.add(leftSubPanel, BorderLayout.WEST);
+		this.add(middleJPanel,BorderLayout.CENTER);
+		this.setName("BannerPanel");
+		this.addMouseListener(this.bannerPanelController);
 		GeneralUtils.log("BannerPanel", "New BannerPanel Created");
 	}
 
-	public JPanel getPanel() {
-		return panel;
-	}
-
-	public void setPanel(JPanel panel) {
-		this.panel = panel;
-	}
 	
 	private JButton createButton(String text) {
 		JButton b = new JButton(text);
@@ -63,6 +56,14 @@ public class BannerPanel extends JPanel{
 		
 		
 		return b;
+	}
+
+	public GameEngine getGe() {
+		return ge;
+	}
+
+	public void setGe(GameEngine ge) {
+		this.ge = ge;
 	}
 	
 	

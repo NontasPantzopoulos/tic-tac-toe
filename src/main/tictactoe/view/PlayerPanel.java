@@ -7,22 +7,28 @@ import java.awt.Dimension;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import main.tictactoe.controller.PlayerPanelController;
+import main.tictactoe.model.GameEngine;
 import main.tictactoe.utils.GeneralUtils;
 
+@SuppressWarnings("serial")
 public class PlayerPanel extends JPanel {
-	private JPanel panel;
 	private JPanel buttonsPanel;
 	private JPanel dataPanel;
+	private GameEngine ge;
+	private PlayerPanelController playerPanelController;
 	
 
-	public PlayerPanel() {
+	public PlayerPanel(GameEngine ge) {
+		this.ge=ge;
+		playerPanelController = new PlayerPanelController();
 		initComponets();
 	}
 	
 	private void initComponets() {
-		this.panel = new JPanel();
-		this.panel.setLayout(new BorderLayout());
-		this.panel.setBackground(Color.GREEN);
+		this.addMouseListener(playerPanelController);
+		this.setLayout(new BorderLayout());
+		this.setBackground(Color.GREEN);
 		
 		this.buttonsPanel = new JPanel();
 		this.buttonsPanel.setBackground(Color.GREEN);
@@ -33,25 +39,25 @@ public class PlayerPanel extends JPanel {
 		this.dataPanel.setBackground(Color.GREEN);
 		
 		
-		this.panel.add(buttonsPanel,BorderLayout.NORTH);
-		this.panel.add(dataPanel,BorderLayout.CENTER);
+		this.add(buttonsPanel,BorderLayout.NORTH);
+		this.add(dataPanel,BorderLayout.CENTER);
 		GeneralUtils.log("PlayerPanel", "New PlayerPanel Created");
 		
 	}
 	
 	private JButton createButton(String text) {
 		JButton b = new JButton(text);
+		b.setName(text);
+		b.addActionListener(playerPanelController);
 		b.setPreferredSize(new Dimension(110,20));
 		return b;
 	}
 
 	public JPanel getPanel() {
-		return panel;
+		return this;
 	}
 
-	public void setPanel(JPanel panel) {
-		this.panel = panel;
-	}
+	
 	
 	
 	

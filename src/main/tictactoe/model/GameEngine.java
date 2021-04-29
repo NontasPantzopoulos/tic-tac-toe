@@ -1,6 +1,7 @@
 package main.tictactoe.model;
 
 import java.util.Optional;
+import java.util.Random;
 
 import main.tictactoe.io.FileHandler;
 import main.tictactoe.utils.GeneralUtils;
@@ -25,8 +26,21 @@ public class GameEngine {
 			GeneralUtils.log("GameEngine", "Found and loaded game file at users profile");
 		}else {
 			this.playerRoster = new PlayerRoster();
+			makeDummyPlayers();
 			GeneralUtils.log("GameEngine", "Game file not found at users profile");
 		}
+	}
+	
+	private void makeDummyPlayers() {
+		for(int i=0;i<10;i++) {
+			Player p = new Player();
+			p.setName("Player "+i);
+			p.setWins((int) (Math.random()*10) + 1);
+			p.setDraws((int) (Math.random()*10) + 1);
+			p.setLosses((int) (Math.random()*10) + 1);
+			this.playerRoster.addPlayer(p);
+		}
+		FileHandler.writePlayerRoster(playerRoster);
 	}
 
 	public PlayerRoster getPlayerRoster() {
@@ -36,6 +50,24 @@ public class GameEngine {
 	public void setPlayerRoster(PlayerRoster playerRoster) {
 		this.playerRoster = playerRoster;
 	}
+
+	public GameRecord getGameRecord() {
+		return gameRecord;
+	}
+
+	public void setGameRecord(GameRecord gameRecord) {
+		this.gameRecord = gameRecord;
+	}
+
+	public Board getBoard() {
+		return board;
+	}
+
+	public void setBoard(Board board) {
+		this.board = board;
+	}
+	
+	
 	
 	
 	

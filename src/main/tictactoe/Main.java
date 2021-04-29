@@ -7,10 +7,9 @@ import main.tictactoe.view.MainWindow;
 public class Main {
 
 	public static void main(String[] args) {
-		GeneralUtils.log("Main", "App started");
-		
-		new GameEngine();
-		new MainWindow();
+		GeneralUtils.log("Main", "App started");	
+		GameEngine ge = new GameEngine();
+		new MainWindow(ge);
 		
 	}
 }
