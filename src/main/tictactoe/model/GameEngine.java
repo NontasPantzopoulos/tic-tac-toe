@@ -1,8 +1,6 @@
 package main.tictactoe.model;
 
 import java.util.Optional;
-import java.util.Random;
-
 import main.tictactoe.io.FileHandler;
 import main.tictactoe.utils.GeneralUtils;
 
@@ -25,14 +23,18 @@ public class GameEngine {
 			this.playerRoster=pRoster.get();
 			GeneralUtils.log("GameEngine", "Found and loaded game file at users profile");
 		}else {
+			//If there is no file in user's profile
 			this.playerRoster = new PlayerRoster();
 			makeDummyPlayers();
 			GeneralUtils.log("GameEngine", "Game file not found at users profile");
 		}
 	}
 	
+	/**
+	 * This method makes players with random scores and saves the data to the file.
+	 */
 	private void makeDummyPlayers() {
-		for(int i=0;i<10;i++) {
+		for(int i=0;i<8;i++) {
 			Player p = new Player();
 			p.setName("Player "+i);
 			p.setWins((int) (Math.random()*10) + 1);
