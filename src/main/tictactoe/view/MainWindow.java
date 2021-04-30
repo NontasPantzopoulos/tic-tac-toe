@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import main.tictactoe.model.GameEngine;
+import main.tictactoe.model.enums.Signs;
 import main.tictactoe.utils.ScreenUtils;
 
 @SuppressWarnings("serial")
@@ -89,8 +90,8 @@ public class MainWindow extends JFrame{
         this.contentsMiddlePanel.add(new GameBoard(this.ge),GB);
         this.contentsMiddlePanel.add(new HallOfFame(this.ge),HOF);
         showCard(HOF);
-        this.contentsLeftPanel=new PlayerPanel(this.ge);
-        this.contentsRightPanel=new PlayerPanel(this.ge);
+        this.contentsLeftPanel=new PlayerPanel(this,this.contentsLeftPanel,this.ge,Signs.X);
+        this.contentsRightPanel=new PlayerPanel(this,this.contentsRightPanel,this.ge,Signs.O);
         
         
         this.contentsPanel.add(this.contentsRightPanel,BorderLayout.EAST);

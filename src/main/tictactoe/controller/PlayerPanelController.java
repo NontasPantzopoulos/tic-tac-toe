@@ -6,12 +6,23 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
+import javax.swing.JPanel;
 
+import main.tictactoe.model.GameEngine;
 import main.tictactoe.utils.GeneralUtils;
+import main.tictactoe.view.MainWindow;
 
 public class PlayerPanelController implements ActionListener,MouseListener{
+	private GameEngine ge;
+	private MainWindow parentFrame;
+	private JPanel parentPanel;
 	
-	
+	public PlayerPanelController(MainWindow parentFrame,JPanel parentPanel,GameEngine ge) {
+		this.ge = ge;
+		this.parentFrame = parentFrame;
+		this.parentPanel = parentPanel;
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub

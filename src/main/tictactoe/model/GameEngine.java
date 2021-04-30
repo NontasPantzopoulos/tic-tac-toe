@@ -8,6 +8,8 @@ public class GameEngine {
 	private PlayerRoster playerRoster;
 	private GameRecord gameRecord;
 	private Board board;
+	private Player playerX;
+	private Player playerO;
 	
 
 	public GameEngine() {
@@ -34,7 +36,7 @@ public class GameEngine {
 	 * This method makes players with random scores and saves the data to the file.
 	 */
 	private void makeDummyPlayers() {
-		for(int i=0;i<8;i++) {
+		for(int i=0;i<4;i++) {
 			Player p = new Player();
 			p.setName("Player "+i);
 			p.setWins((int) (Math.random()*10) + 1);
@@ -68,7 +70,29 @@ public class GameEngine {
 	public void setBoard(Board board) {
 		this.board = board;
 	}
+
+	public Player getPlayer1() {
+		return playerX;
+	}
+
+	public void setPlayer1(Player player1) {
+		this.playerX = player1;
+	}
+
+	public Player getPlayer2() {
+		return playerO;
+	}
+
+	public void setPlayer2(Player player2) {
+		this.playerO = player2;
+	}
 	
+	public boolean readyToPlay() {
+		if(playerX==null || playerO==null) {
+			return false;
+		}
+		return true;
+	}
 	
 	
 	
