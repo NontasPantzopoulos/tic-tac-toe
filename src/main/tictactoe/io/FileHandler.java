@@ -39,6 +39,12 @@ public class FileHandler {
         }
 		
 	}
+
+	public static String getUserpath() {
+		return userPath;
+	}
+	
+	
 	
 
 }

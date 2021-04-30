@@ -21,12 +21,12 @@ public class GameEngine {
 		Optional<PlayerRoster> pRoster = Optional.ofNullable(FileHandler.readPlayerRoster());
 		if(pRoster.isPresent()) {
 			this.playerRoster=pRoster.get();
-			GeneralUtils.log("GameEngine", "Found and loaded game file at users profile");
+			GeneralUtils.log("GameEngine", "Found and loaded game file from "+FileHandler.getUserpath());
 		}else {
 			//If there is no file in user's profile
 			this.playerRoster = new PlayerRoster();
 			makeDummyPlayers();
-			GeneralUtils.log("GameEngine", "Game file not found at users profile");
+			GeneralUtils.log("GameEngine", "Created new PlayerRoster");
 		}
 	}
 	

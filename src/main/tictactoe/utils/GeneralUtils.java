@@ -9,11 +9,11 @@ public class GeneralUtils {
 		long timestamp = Instant.now().toEpochMilli();
 		Date date =new Date(timestamp);
 		System.out.println(String.valueOf(timestamp)+"-"+
-		className+"-"+(1900+date.getYear())+"-"+(date.getMonth()+1)+"-"+
+		"-"+(1900+date.getYear())+"-"+(date.getMonth()+1)+"-"+
 				date.getDate()+"--"+
 				date.getHours()+":"+
 				date.getMinutes()+":"+
-				date.getSeconds()+"--"+log);
+				date.getSeconds()+"--"+className+"-"+log);
 	}
 
 }

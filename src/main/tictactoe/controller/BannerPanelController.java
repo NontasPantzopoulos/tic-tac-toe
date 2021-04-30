@@ -6,21 +6,51 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
+import main.tictactoe.model.GameEngine;
+import main.tictactoe.model.Player;
 import main.tictactoe.utils.GeneralUtils;
+import main.tictactoe.view.MainWindow;
 
 public class BannerPanelController implements ActionListener,MouseListener{
+	private GameEngine ge;
+	private MainWindow parentFrame;
+	private JPanel parentPanel;
+	
+
+	public BannerPanelController(MainWindow parentFrame,JPanel parentPanel, GameEngine ge) {
+		this.parentFrame=parentFrame;
+		this.ge = ge;
+		this.parentPanel=parentPanel;
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-		
-		if(e.getSource().getClass().equals(JButton.class)) {
-			
+		if(e.getSource().getClass().equals(JButton.class)) {			
 			GeneralUtils.log("BannerPanelController", e.getActionCommand().toString());
 			String action = e.getActionCommand().toString();
 			switch(action) {
+			case "Add Player":
+				String selPlayer = (String) JOptionPane.showInputDialog(null,"Name","New Player",JOptionPane.INFORMATION_MESSAGE);
+				if (selPlayer==null || selPlayer=="" || selPlayer.equals("")) {
+					JOptionPane.showMessageDialog(null,"Player name should not be null","Error",JOptionPane.ERROR_MESSAGE);
+				}
+				else if(selPlayer.length()>20) {
+					JOptionPane.showMessageDialog(null,"The game will save the first 20 characters of the name.","Warning",JOptionPane.WARNING_MESSAGE);
+					Player p =new Player(selPlayer);
+					ge.getPlayerRoster().addPlayer(p);
+					parentFrame.showCard(parentFrame.getHalloffame());
+					
+				}
+				else {
+					Player p =new Player(selPlayer);
+					ge.getPlayerRoster().addPlayer(p);
+					parentFrame.showCard(parentFrame.getHalloffame());
+				}
+				
+				break;
 			case "Quit":
 				GeneralUtils.log("BannerPanelController", "Application Closing...");
 				System.exit(0);
@@ -64,6 +94,30 @@ public class BannerPanelController implements ActionListener,MouseListener{
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
 //		GeneralUtils.log("BannerPanelController", "Exited from on"+e.getComponent().getName());
+	}
+
+	public GameEngine getGe() {
+		return ge;
+	}
+
+	public void setGe(GameEngine ge) {
+		this.ge = ge;
+	}
+
+	public MainWindow getParentFrame() {
+		return parentFrame;
+	}
+
+	public void setParentFrame(MainWindow parentFrame) {
+		this.parentFrame = parentFrame;
+	}
+
+	public JPanel getParentPanel() {
+		return parentPanel;
+	}
+
+	public void setParentPanel(JPanel parentPanel) {
+		this.parentPanel = parentPanel;
 	}
 
 	

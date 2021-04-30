@@ -64,7 +64,7 @@ public class MainWindow extends JFrame{
 		//Initializes the BannerPanel
         initBannerPanel(this.frame);
         
-        //Initializes the contnent Panel
+        //Initializes the content Panel
         initContentPanel(this.frame);
 
         //frame.pack();
@@ -74,7 +74,7 @@ public class MainWindow extends JFrame{
 	}
 	
 	private void initBannerPanel(JFrame frame) {
-		this.bannerPanel = new BannerPanel(this.ge);
+		this.bannerPanel = new BannerPanel(this,this.ge);
         this.frame.getContentPane().add(bannerPanel,BorderLayout.NORTH);
 	}
 	
@@ -101,9 +101,22 @@ public class MainWindow extends JFrame{
 	
 	}
 	
+	
+	
 	public void showCard(String cardname) {
 		CardLayout cl = (CardLayout) contentsMiddlePanel.getLayout();
         cl.show(contentsMiddlePanel, cardname);
+        if(cardname.equals(GB)) {
+        	contentsMiddlePanel.remove(0);
+        	contentsMiddlePanel.add(new GameBoard(this.ge),GB);
+        	cl.show(contentsMiddlePanel, GB);
+        }
+        if(cardname.equals(HOF)) {
+        	contentsMiddlePanel.remove(1);
+        	contentsMiddlePanel.add(new HallOfFame(this.ge),HOF);
+        	cl.show(contentsMiddlePanel, HOF);
+        }
+        contentsMiddlePanel.repaint();
 	}
 	
 	

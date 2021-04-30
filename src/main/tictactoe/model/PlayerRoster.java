@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import main.tictactoe.io.FileHandler;
 import main.tictactoe.utils.GeneralUtils;
 
 @SuppressWarnings("serial")
@@ -29,6 +30,7 @@ public class PlayerRoster implements Serializable{
 		Optional<Player> tempPlayer = Optional.ofNullable(this.players.get(p.getName()));
 		if(!tempPlayer.isPresent()) {
 			this.players.put(p.getName(), p);
+			FileHandler.writePlayerRoster(this);
 			GeneralUtils.log("PlayerRoster", "Adding new Player "+p.getName()+" to Roster.");
 		}else {
 			GeneralUtils.log("PlayerRoster", p.getName()+" already exists.");

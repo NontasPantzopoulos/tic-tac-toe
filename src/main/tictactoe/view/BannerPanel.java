@@ -18,10 +18,12 @@ public class BannerPanel extends JPanel{
 	private JPanel middleJPanel;
 	private GameEngine ge;
 	private BannerPanelController bannerPanelController;
+	private MainWindow parentFrame;
 
-	public BannerPanel(GameEngine ge) {
+	public BannerPanel(MainWindow parentFrame,GameEngine ge) {
 		this.setGe(ge);
-		this.bannerPanelController = new BannerPanelController();
+		this.parentFrame=parentFrame;
+		this.bannerPanelController = new BannerPanelController(this.parentFrame,this,this.ge);
 		initComponents();
 	}
 	
@@ -29,8 +31,7 @@ public class BannerPanel extends JPanel{
 		
 		this.setLayout(new BorderLayout());
 		this.setBackground(Color.WHITE);
-	
-		
+			
 		this.leftSubPanel = new JPanel();
 		this.leftSubPanel.setBackground(Color.WHITE);
 		this.leftSubPanel.add(createButton("Quit"));
@@ -38,25 +39,52 @@ public class BannerPanel extends JPanel{
 		
 		this.middleJPanel = new JPanel();
 		this.middleJPanel.setBackground(Color.WHITE);
-		this.middleJPanel.add(createButton("Done"));
+		this.middleJPanel.add(createDisabledButton("Done"));
 		
 		this.add(leftSubPanel, BorderLayout.WEST);
 		this.add(middleJPanel,BorderLayout.CENTER);
 		this.setName("BannerPanel");
 		this.addMouseListener(this.bannerPanelController);
 		GeneralUtils.log("BannerPanel", "New BannerPanel Created");
+		
 	}
 
 	
 	private JButton createButton(String text) {
 		JButton b = new JButton(text);
 		b.setPreferredSize(new Dimension(100,25));
+		b.setName(text);
 		b.setActionCommand(text);
 		b.addActionListener(this.bannerPanelController);
-		
-		
 		return b;
 	}
+	
+	private JButton createDisabledButton(String text) {
+		JButton b = new JButton(text);
+		b.setPreferredSize(new Dimension(100,25));
+		b.setName(text);
+		b.setActionCommand(text);
+		b.setEnabled(false);
+		b.addActionListener(this.bannerPanelController);
+		return b;
+	}
+	
+	public void activateDoneButton() {
+		for(int i=0;i<middleJPanel.getComponents().length;i++) {
+			if(middleJPanel.getComponent(i).getName().equals("Done")) {
+				middleJPanel.getComponent(i).setEnabled(true);
+			}
+		}
+	}
+	
+	public void deActivateDoneButton() {
+		for(int i=0;i<middleJPanel.getComponents().length;i++) {
+			if(middleJPanel.getComponent(i).getName().equals("Done")) {
+				middleJPanel.getComponent(i).setEnabled(false);
+			}
+		}
+	}
+	
 
 	public GameEngine getGe() {
 		return ge;
