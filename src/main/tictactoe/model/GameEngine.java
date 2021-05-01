@@ -71,20 +71,20 @@ public class GameEngine {
 		this.board = board;
 	}
 
-	public Player getPlayer1() {
+	public Player getPlayerX() {
 		return playerX;
 	}
 
-	public void setPlayer1(Player player1) {
-		this.playerX = player1;
+	public void setPlayerX(Player playerX) {
+		this.playerX = playerX;
 	}
 
-	public Player getPlayer2() {
+	public Player getPlayerO() {
 		return playerO;
 	}
 
-	public void setPlayer2(Player player2) {
-		this.playerO = player2;
+	public void setPlayerO(Player playerO) {
+		this.playerO = playerO;
 	}
 	
 	public boolean readyToPlay() {

@@ -3,7 +3,7 @@ package main.tictactoe.model;
 import java.io.Serializable;
 
 @SuppressWarnings("serial")
-public class Player implements Serializable{
+public class Player implements Serializable,Cloneable{
 	private String name;
 	private int totalGames;
 	private int wins;
@@ -132,10 +132,13 @@ public class Player implements Serializable{
 		return score;
 	}
 
-//	public void setScore(float score) {
-//		this.score = score;
-//	}
-	
+	public void setScore(float score) {
+		this.score = score;
+	}
+	public Object clone() throws CloneNotSupportedException
+    {
+        return super.clone();
+    }
 	
 
 }

@@ -11,13 +11,14 @@ import javax.swing.JPanel;
 import main.tictactoe.model.GameEngine;
 import main.tictactoe.utils.GeneralUtils;
 import main.tictactoe.view.MainWindow;
+import main.tictactoe.view.PlayerPanel;
 
 public class PlayerPanelController implements ActionListener,MouseListener{
 	private GameEngine ge;
 	private MainWindow parentFrame;
-	private JPanel parentPanel;
+	private PlayerPanel parentPanel;
 	
-	public PlayerPanelController(MainWindow parentFrame,JPanel parentPanel,GameEngine ge) {
+	public PlayerPanelController(MainWindow parentFrame,PlayerPanel parentPanel,GameEngine ge) {
 		this.ge = ge;
 		this.parentFrame = parentFrame;
 		this.parentPanel = parentPanel;
@@ -30,13 +31,19 @@ public class PlayerPanelController implements ActionListener,MouseListener{
 		
 		if(e.getSource().getClass().equals(JButton.class)) {
 			
-			GeneralUtils.log("PlayerPanelController", e.getActionCommand().toString());
+			//GeneralUtils.log("PlayerPanelController", e.getActionCommand().toString());
 			String action = e.getActionCommand().toString();
 			switch(action) {
 				case "Start Game":
 					GeneralUtils.log("PlayerPanelController", "Start Game Pressed");
 					break;
 				case "SelectPlayer":
+				try {
+					parentPanel.selectPlayer();
+				} catch (CloneNotSupportedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 					GeneralUtils.log("PlayerPanelController", "SelectPlayer Pressed");
 					break;
 				default:
