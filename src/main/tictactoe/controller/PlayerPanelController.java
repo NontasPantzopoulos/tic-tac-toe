@@ -35,6 +35,7 @@ public class PlayerPanelController implements ActionListener,MouseListener{
 			String action = e.getActionCommand().toString();
 			switch(action) {
 				case "Start Game":
+					parentFrame.showCard(MainWindow.getGameboard());
 					GeneralUtils.log("PlayerPanelController", "Start Game Pressed");
 					break;
 				case "SelectPlayer":

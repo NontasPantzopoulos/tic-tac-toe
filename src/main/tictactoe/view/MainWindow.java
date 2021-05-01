@@ -24,14 +24,17 @@ public class MainWindow extends JFrame{
 	private JFrame frame;
 	private JPanel bannerPanel;
 	private JPanel contentsPanel;
-	private JPanel contentsLeftPanel;
-	private JPanel contentsRightPanel;
+	private PlayerPanel contentsLeftPanel;
+	private PlayerPanel contentsRightPanel;
 	private JPanel contentsMiddlePanel;
 	private GameEngine ge;
 	
 	private static final String HOF = "HALLOFFAME";
 	private static final String GB = "GAMEBOARD";
-	
+	static public final int WIDTH = 1024;
+	static public final int HEIGHT = 768;
+	static public final int TOP_HEIGHT = 50;
+	static public final int PLAYER_WIDTH = 240;
 
 	public MainWindow(GameEngine ge) throws HeadlessException {
 		this.setGe(ge);
@@ -54,7 +57,7 @@ public class MainWindow extends JFrame{
 		//Frame title
 		this.frame = new JFrame("___Tic-Tac-Toe___");
 		//Frame initial size
-		this.frame.setSize(1024, 768);
+		this.frame.setSize(WIDTH, HEIGHT);
 		//Gets the Frame to the center of the screen
 		this.frame = ScreenUtils.windowCentered(frame);
 		//Sets a layout to the Frame
@@ -147,19 +150,19 @@ public class MainWindow extends JFrame{
 		this.contentsPanel = contentsPanel;
 	}
 
-	public JPanel getContentsLeftPanel() {
+	public PlayerPanel getContentsLeftPanel() {
 		return contentsLeftPanel;
 	}
 
-	public void setContentsLeftPanel(JPanel contentsLeftPanel) {
+	public void setContentsLeftPanel(PlayerPanel contentsLeftPanel) {
 		this.contentsLeftPanel = contentsLeftPanel;
 	}
 
-	public JPanel getContentsRightPanel() {
+	public PlayerPanel getContentsRightPanel() {
 		return contentsRightPanel;
 	}
 
-	public void setContentsRightPanel(JPanel contentsRightPanel) {
+	public void setContentsRightPanel(PlayerPanel contentsRightPanel) {
 		this.contentsRightPanel = contentsRightPanel;
 	}
 

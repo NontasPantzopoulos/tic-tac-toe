@@ -7,7 +7,7 @@ import main.tictactoe.utils.GeneralUtils;
 public class GameEngine {
 	private PlayerRoster playerRoster;
 	private GameRecord gameRecord;
-	private Board board;
+	private Board[] board;
 	private Player playerX;
 	private Player playerO;
 	
@@ -15,7 +15,7 @@ public class GameEngine {
 	public GameEngine() {
 		initRoster();
 		this.gameRecord = new GameRecord();
-		this.board = new Board();
+		this.board = new Board[9];
 		
 	}
 	
@@ -63,11 +63,13 @@ public class GameEngine {
 		this.gameRecord = gameRecord;
 	}
 
-	public Board getBoard() {
+	
+
+	public Board[] getBoard() {
 		return board;
 	}
 
-	public void setBoard(Board board) {
+	public void setBoard(Board[] board) {
 		this.board = board;
 	}
 

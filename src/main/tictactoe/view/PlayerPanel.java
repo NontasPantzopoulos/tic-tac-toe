@@ -135,6 +135,9 @@ public class PlayerPanel extends JPanel {
 		
 		}
 		
+		if(selPlayer==null) {
+			return;
+		}
 		JLabel selPlayerLabel =  new JLabel(selPlayer);
 		selPlayerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		JLabel selPlayerTotal = new JLabel("Total: "+ge.getPlayerRoster().findPlayerByName(selPlayer).getTotalGames());
@@ -185,14 +188,72 @@ public class PlayerPanel extends JPanel {
 		this.dataPanel.repaint();
 		this.dataPanel.revalidate();
 		
-		if(ge.getPlayerO()!=null && ge.getPlayerX()!=null) {
-			parentFrame.showCard(parentFrame.getGameboard());
+		if(ge.readyToPlay()) {
+//			parentFrame.showCard(MainWindow.getGameboard());
+			parentFrame.getContentsLeftPanel().getButtonsPanel().getComponent(0).setEnabled(true);
+			parentFrame.getContentsRightPanel().getButtonsPanel().getComponent(0).setEnabled(true);
 		}
 		
 	}
 
 	public JPanel getPanel() {
 		return this;
+	}
+
+	public JPanel getButtonsPanel() {
+		return buttonsPanel;
+	}
+
+	public void setButtonsPanel(JPanel buttonsPanel) {
+		this.buttonsPanel = buttonsPanel;
+	}
+
+	public JPanel getDataPanel() {
+		return dataPanel;
+	}
+
+	public void setDataPanel(JPanel dataPanel) {
+		this.dataPanel = dataPanel;
+	}
+
+	public JPanel getParentPanel() {
+		return parentPanel;
+	}
+
+	public void setParentPanel(JPanel parentPanel) {
+		this.parentPanel = parentPanel;
+	}
+
+	public GameEngine getGe() {
+		return ge;
+	}
+
+	public void setGe(GameEngine ge) {
+		this.ge = ge;
+	}
+
+	public MainWindow getParentFrame() {
+		return parentFrame;
+	}
+
+	public void setParentFrame(MainWindow parentFrame) {
+		this.parentFrame = parentFrame;
+	}
+
+	public PlayerPanelController getPlayerPanelController() {
+		return playerPanelController;
+	}
+
+	public void setPlayerPanelController(PlayerPanelController playerPanelController) {
+		this.playerPanelController = playerPanelController;
+	}
+
+	public Signs getSign() {
+		return sign;
+	}
+
+	public void setSign(Signs sign) {
+		this.sign = sign;
 	}
 
 	

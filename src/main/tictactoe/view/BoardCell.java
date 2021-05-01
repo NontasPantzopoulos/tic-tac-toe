@@ -6,6 +6,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
@@ -20,7 +22,11 @@ public class BoardCell  extends JPanel implements MouseListener {
 	public boolean highlighted;
 
 	public BoardCell(int row, int col) {
-		
+//		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+//		this.setAlignmentX(CENTER_ALIGNMENT);
+//		this.setAlignmentY(CENTER_ALIGNMENT);
+		this.setBackground(Color.WHITE);
+		this.addMouseListener(this);
 		this.row = row;
 		this.col = col;
 		this.highlighted = false;
@@ -56,12 +62,13 @@ public class BoardCell  extends JPanel implements MouseListener {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		this.setBorder(new LineBorder(Color.DARK_GRAY, 1));
+		this.setBorder(new LineBorder(Color.DARK_GRAY, 3));
 
 		//String mark = getModel().getBoardMark(this.row, this.col);
-		String mark = "X";
+		String mark = null;
 		Graphics2D g2d = (Graphics2D) g;
-		int size = 1024 - 2 * CELL_PADDING;
+		int size = 125;
+//		int size = this.getSize().width - 2 * CELL_PADDING;
 		g2d.setStroke(new BasicStroke(6));
 		if (mark == null) {
 			if (highlighted) {
