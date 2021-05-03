@@ -2,6 +2,7 @@ package main.tictactoe.model;
 
 import java.util.Optional;
 import main.tictactoe.io.FileHandler;
+import main.tictactoe.model.enums.Signs;
 import main.tictactoe.utils.GeneralUtils;
 
 public class GameEngine {
@@ -10,12 +11,14 @@ public class GameEngine {
 	private Board[] board;
 	private Player playerX;
 	private Player playerO;
+	private int moves=0;
 	
 
 	public GameEngine() {
 		initRoster();
 		this.gameRecord = new GameRecord();
 		this.board = new Board[9];
+		GeneralUtils.log("GameEngine", "GameEngine Initialization");
 		
 	}
 	
@@ -46,6 +49,46 @@ public class GameEngine {
 		}
 		FileHandler.writePlayerRoster(playerRoster);
 	}
+	
+	public boolean readyToPlay() {
+		if(playerX==null || playerO==null) {
+			return false;
+		}
+		return true;
+	}
+	
+	public void makeMove(int row, int col) {
+		if(moves==0) {
+			String[][] newBoard = new String[3][3];
+			newBoard[row][col]=getSign();
+			board[0]=new Board(newBoard);
+		}else {
+			String[][] stringBoard = board[moves-1].getBoard();
+			if(stringBoard[row][col]==null) {
+				stringBoard[row][col]=getSign();
+				board[moves] = new Board(stringBoard);
+			}
+			else {
+				GeneralUtils.log("GameEngine", "There is already a value to the cell.");
+				return;
+			}
+		}
+		
+		moves++;
+	}
+	
+	private String getSign() {
+		if(moves == 0||moves==2||moves==4||moves==6||moves==8){
+			return Signs.X.toString();
+		}
+		else {
+			return Signs.O.toString();
+		}
+	
+	}
+	
+	
+	//Getters And Setters
 
 	public PlayerRoster getPlayerRoster() {
 		return playerRoster;
@@ -88,13 +131,16 @@ public class GameEngine {
 	public void setPlayerO(Player playerO) {
 		this.playerO = playerO;
 	}
-	
-	public boolean readyToPlay() {
-		if(playerX==null || playerO==null) {
-			return false;
-		}
-		return true;
+
+	public int getMoves() {
+		return moves;
 	}
+
+	public void setMoves(int moves) {
+		this.moves = moves;
+	}
+	
+	
 	
 	
 	

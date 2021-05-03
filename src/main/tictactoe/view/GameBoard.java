@@ -40,7 +40,7 @@ public class GameBoard extends JPanel{
 		
 		for (int row=0; row< 3; row++) {
 			for (int col=0; col< 3; col++) {
-				BoardCell cell = new BoardCell(row, col);
+				BoardCell cell = new BoardCell(row, col,ge);
 //				JLabel cell=new JLabel();
 //				cell.setText("cell"+row+""+col);
 //				cell.setName("cell"+row+""+col);
