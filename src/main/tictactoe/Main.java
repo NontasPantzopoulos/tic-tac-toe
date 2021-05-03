@@ -1,17 +1,23 @@
 package main.tictactoe;
 
-import main.tictactoe.model.Board;
 import main.tictactoe.model.GameEngine;
 import main.tictactoe.utils.GeneralUtils;
 import main.tictactoe.view.MainWindow;
-
+/**
+ * This application is a Java GUI (Swing Based) application for tic-tac-toe game.
+ * This is the entry point (main) of the whole application.
+ * All comments are in English language because I hate greeklish. Sorry...
+ */
 public class Main {
-
+	/**
+	 * Main method
+	 * @param args
+	 */
 	public static void main(String[] args) {
-//		Board b =new Board();
-//		System.out.println(b.toString());
-		GeneralUtils.log("Main", "App started");	
+		GeneralUtils.log("Main", "App started");
+		//Initializes a GameEngine instance.
 		GameEngine ge = new GameEngine();
+		//Initializes the main JFrame.
 		new MainWindow(ge);
 		
 	}

@@ -26,7 +26,6 @@ public class BoardCell  extends AbstractPanel  {
 
 	public BoardCell(int row, int col,GameEngine ge) {
 		super(ge);
-		//this.boardCellController = new BoardCellController(this, ge);
 		this.setBackground(Color.WHITE);
 		this.addMouseListener(new BoardCellController(this, ge));
 		this.row = row;
@@ -52,13 +51,9 @@ public class BoardCell  extends AbstractPanel  {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		if(!ge.checkGameStatus()) {
-			return;
-		}
-		
+			
 		this.setBorder(new LineBorder(Color.DARK_GRAY, 3));
 		String mark = Signs.EMPTY.toString();
-		//GeneralUtils.log("BoardCell", row+","+col+" Created");
 		if(ge.getMoves()>0) {
 			mark = ge.getBoard()[ge.getMoves()-1].getBoard()[row][col];
 		}else {
@@ -74,7 +69,6 @@ public class BoardCell  extends AbstractPanel  {
 				g2d.setColor(Color.LIGHT_GRAY);
 				g2d.fillRect(CELL_PADDING, CELL_PADDING, size, size);
 			}
-			return;
 		} else if (mark==Signs.X.toString()) {
 			g2d.drawLine(CELL_PADDING, CELL_PADDING, CELL_PADDING + size, CELL_PADDING + size);
 			g2d.drawLine(CELL_PADDING + size, CELL_PADDING, CELL_PADDING, CELL_PADDING + size);
