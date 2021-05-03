@@ -14,15 +14,14 @@ import main.tictactoe.model.Player;
 import main.tictactoe.utils.GeneralUtils;
 import main.tictactoe.view.MainWindow;
 
-public class BannerPanelController implements ActionListener,MouseListener{
-	private GameEngine ge;
+public class BannerPanelController extends AbstractController implements ActionListener,MouseListener{
 	private MainWindow parentFrame;
 	private JPanel parentPanel;
 	
 
 	public BannerPanelController(MainWindow parentFrame,JPanel parentPanel, GameEngine ge) {
+		super(ge);
 		this.parentFrame=parentFrame;
-		this.ge = ge;
 		this.parentPanel=parentPanel;
 	}
 

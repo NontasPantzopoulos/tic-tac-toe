@@ -5,7 +5,15 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class GameBoardController implements ActionListener,MouseListener{
+import main.tictactoe.model.GameEngine;
+
+public class GameBoardController extends AbstractController implements ActionListener,MouseListener{
+	
+	
+
+	public GameBoardController(GameEngine ge) {
+		super(ge);
+	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {

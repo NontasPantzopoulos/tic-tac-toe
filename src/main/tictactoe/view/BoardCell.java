@@ -13,24 +13,22 @@ import javax.swing.border.LineBorder;
 
 import main.tictactoe.controller.BoardCellController;
 import main.tictactoe.model.GameEngine;
+import main.tictactoe.model.enums.Signs;
 import main.tictactoe.utils.GeneralUtils;
 
 
 @SuppressWarnings("serial")
-public class BoardCell  extends JPanel  {
-	
-	private BoardCellController boardCellController;
-	private GameEngine ge;
+public class BoardCell  extends AbstractPanel  {
 	public static final int CELL_PADDING = 10;
 	int row, col;	
 	public boolean highlighted;
 	
 
 	public BoardCell(int row, int col,GameEngine ge) {
-		this.ge = ge;
-		this.boardCellController = new BoardCellController(this, ge);
+		super(ge);
+		//this.boardCellController = new BoardCellController(this, ge);
 		this.setBackground(Color.WHITE);
-		this.addMouseListener(this.boardCellController);
+		this.addMouseListener(new BoardCellController(this, ge));
 		this.row = row;
 		this.col = col;
 		this.highlighted = false;
@@ -54,27 +52,30 @@ public class BoardCell  extends JPanel  {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		this.setBorder(new LineBorder(Color.DARK_GRAY, 3));
-		String mark = null;
-		try {
-			mark = ge.getBoard()[ge.getMoves()].getBoard()[row][col];
-		}catch (Exception e) {
-			mark =null;
-			GeneralUtils.log("BoardCell", row+","+col+" has null value");
+		if(!ge.checkGameStatus()) {
+			return;
 		}
 		
-//		String mark = null;
+		this.setBorder(new LineBorder(Color.DARK_GRAY, 3));
+		String mark = Signs.EMPTY.toString();
+		//GeneralUtils.log("BoardCell", row+","+col+" Created");
+		if(ge.getMoves()>0) {
+			mark = ge.getBoard()[ge.getMoves()-1].getBoard()[row][col];
+		}else {
+			mark = ge.getBoard()[ge.getMoves()].getBoard()[row][col];
+		}
+		
 		Graphics2D g2d = (Graphics2D) g;
 		int size = 125;
 //		int size = this.getSize().width - 2 * CELL_PADDING;
 		g2d.setStroke(new BasicStroke(6));
-		if (mark == null) {
+		if (mark == Signs.EMPTY.toString()) {
 			if (highlighted) {
 				g2d.setColor(Color.LIGHT_GRAY);
 				g2d.fillRect(CELL_PADDING, CELL_PADDING, size, size);
 			}
 			return;
-		} else if (mark.equals("X")) {
+		} else if (mark==Signs.X.toString()) {
 			g2d.drawLine(CELL_PADDING, CELL_PADDING, CELL_PADDING + size, CELL_PADDING + size);
 			g2d.drawLine(CELL_PADDING + size, CELL_PADDING, CELL_PADDING, CELL_PADDING + size);
 		} else {
@@ -86,6 +87,22 @@ public class BoardCell  extends JPanel  {
 	@Override
 	public String toString() {
 		return "(" + this.row + "," + this.col + ")";
+	}
+
+	public int getRow() {
+		return row;
+	}
+
+	public void setRow(int row) {
+		this.row = row;
+	}
+
+	public int getCol() {
+		return col;
+	}
+
+	public void setCol(int col) {
+		this.col = col;
 	}
 
 

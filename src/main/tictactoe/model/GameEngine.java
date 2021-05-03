@@ -12,12 +12,16 @@ public class GameEngine {
 	private Player playerX;
 	private Player playerO;
 	private int moves=0;
+	private boolean gameActive=false;
 	
 
 	public GameEngine() {
 		initRoster();
 		this.gameRecord = new GameRecord();
 		this.board = new Board[9];
+		for(int i=0;i<this.board.length;i++) {
+			this.board[i]= new Board();
+		}
 		GeneralUtils.log("GameEngine", "GameEngine Initialization");
 		
 	}
@@ -54,17 +58,33 @@ public class GameEngine {
 		if(playerX==null || playerO==null) {
 			return false;
 		}
+		this.gameActive=true;
 		return true;
 	}
 	
 	public void makeMove(int row, int col) {
+		if(moves>9) {
+			return;
+		}
+		if(!gameActive) {
+			return;
+		}
 		if(moves==0) {
 			String[][] newBoard = new String[3][3];
-			newBoard[row][col]=getSign();
+			for(int rrow=0;rrow<3;rrow++) {
+				for(int ccol=0;ccol<3;ccol++) {
+					if(ccol==col && rrow==row) {
+						newBoard[rrow][ccol]=getSign();
+					}
+					else {
+						newBoard[rrow][ccol]=Signs.EMPTY.toString();
+					}
+				}
+			}
 			board[0]=new Board(newBoard);
-		}else {
+		}else{
 			String[][] stringBoard = board[moves-1].getBoard();
-			if(stringBoard[row][col]==null) {
+			if(stringBoard[row][col]==Signs.EMPTY.toString()) {
 				stringBoard[row][col]=getSign();
 				board[moves] = new Board(stringBoard);
 			}
@@ -73,7 +93,9 @@ public class GameEngine {
 				return;
 			}
 		}
-		
+		GeneralUtils.log("GameEngine", "Move:"+moves+"-"+row+","+col);
+		System.out.println(board[moves].toString());
+		checkBoard();
 		moves++;
 	}
 	
@@ -87,7 +109,25 @@ public class GameEngine {
 	
 	}
 	
-	
+	public boolean checkGameStatus() {
+		return gameActive;
+	}
+	private void checkBoard() {
+		if(board[moves].isValid()) {
+			GeneralUtils.log("GameEngine", "Board:"+moves+" is Valid");
+		}else {
+			gameActive=false;
+		}
+		if(board[moves].isWin(getSign())) {
+			GeneralUtils.log("GameEngine", "Player "+getSign()+" is Winner!");
+			gameActive=false;
+		}
+		if(board[moves].isValid() && moves==8 && !board[moves].isWin(getSign())) {
+			GeneralUtils.log("GameEngine", "Game result: Draw");
+			gameActive=false;
+		}
+		
+	}
 	//Getters And Setters
 
 	public PlayerRoster getPlayerRoster() {

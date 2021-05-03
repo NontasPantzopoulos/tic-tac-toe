@@ -1,38 +1,25 @@
 package main.tictactoe.view;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Point;
-
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import main.tictactoe.model.GameEngine;
 
-
-
-
-
-
-
 @SuppressWarnings("serial")
-public class GameBoard extends JPanel{
-	private GameEngine ge;
+public class GameBoard extends AbstractPanel implements InterfacePanel{
 	BoardCell[] cells;
 	
 	public GameBoard(GameEngine ge) {
-		this.setGe(ge);
+		super(ge);
 		this.cells= new BoardCell[9];	
 		initComponents();
 	}
 
-
-	private void initComponents() {
+	@Override
+	public void initComponents() {
 		
 		this.setBackground(Color.WHITE);
 		this.setBorder(new EmptyBorder(50, 50, 100, 50) );

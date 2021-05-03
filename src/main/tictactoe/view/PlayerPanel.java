@@ -20,25 +20,25 @@ import main.tictactoe.model.enums.Signs;
 import main.tictactoe.utils.GeneralUtils;
 
 @SuppressWarnings("serial")
-public class PlayerPanel extends JPanel {
+public class PlayerPanel extends AbstractPanel implements InterfacePanel {
 	private JPanel buttonsPanel;
 	private JPanel dataPanel;
 	private JPanel parentPanel;
-	private GameEngine ge;
 	private MainWindow parentFrame;
 	private PlayerPanelController playerPanelController;
 	private Signs sign;
 	
 
 	public PlayerPanel(MainWindow parentFrame,JPanel parentPanel,GameEngine ge,Signs sign) {
+		super(ge);
 		this.parentFrame=parentFrame;
-		this.ge=ge;
 		this.playerPanelController = new PlayerPanelController(this.parentFrame,this,this.ge);
 		this.sign=sign;
-		initComponets();
+		initComponents();
 	}
 	
-	private void initComponets() {
+	@Override
+	public void initComponents() {
 		this.addMouseListener(playerPanelController);
 		this.setLayout(new BorderLayout());
 		this.setBackground(Color.GREEN);

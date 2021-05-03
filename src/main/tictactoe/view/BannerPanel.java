@@ -12,22 +12,22 @@ import main.tictactoe.model.GameEngine;
 import main.tictactoe.utils.GeneralUtils;
 
 @SuppressWarnings("serial")
-public class BannerPanel extends JPanel{
+public class BannerPanel extends AbstractPanel implements InterfacePanel{
 	
 	private JPanel leftSubPanel;
 	private JPanel middleJPanel;
-	private GameEngine ge;
 	private BannerPanelController bannerPanelController;
 	private MainWindow parentFrame;
 
 	public BannerPanel(MainWindow parentFrame,GameEngine ge) {
-		this.setGe(ge);
+		super(ge);
 		this.parentFrame=parentFrame;
 		this.bannerPanelController = new BannerPanelController(this.parentFrame,this,this.ge);
 		initComponents();
 	}
 	
-	private void initComponents() {
+	@Override
+	public void initComponents() {
 		
 		this.setLayout(new BorderLayout());
 		this.setBackground(Color.WHITE);

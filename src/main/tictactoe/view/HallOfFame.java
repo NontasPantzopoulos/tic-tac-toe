@@ -15,16 +15,16 @@ import main.tictactoe.model.Player;
 import main.tictactoe.utils.SpringUtilities;
 
 @SuppressWarnings("serial")
-public class HallOfFame extends JPanel{
-	private GameEngine ge;
+public class HallOfFame extends AbstractPanel implements InterfacePanel{
+	
 
 	public HallOfFame(GameEngine ge) {
-		this.setGe(ge);
+		super(ge);
 		initComponents();
 	}
 	
-	
-	private void initComponents() {
+	@Override
+	public void initComponents() {
 		this.setLayout(new SpringLayout());
 		this.setBackground(Color.YELLOW);
 		//this.setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));

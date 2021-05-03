@@ -2,7 +2,8 @@ package main.tictactoe.model.enums;
 
 public enum Signs {
 	X("X"),
-	O("O");
+	O("O"),
+	EMPTY("_");
 	
 	private String sign;
 

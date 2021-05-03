@@ -1,10 +1,20 @@
 package main.tictactoe.model;
 
+import java.util.Arrays;
+
+import main.tictactoe.model.enums.Signs;
+
 public final class Board {
 	private final String[][] board;
 
 	public Board() {
-		this.board = new String[3][3];
+		String[][] emptyBoard= new String[3][3];
+		for(int row=0;row<3;row++) {
+			for(int col=0;col<3;col++) {
+				emptyBoard[row][col]=Signs.EMPTY.toString();
+			}
+		}
+		this.board = emptyBoard;
 	}
 	
 	public Board(String[][] b) {
@@ -120,6 +130,19 @@ public final class Board {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder boardStr = new StringBuilder();
+		for(int row=0;row<3;row++) {
+			for(int col=0;col<3;col++) {
+				boardStr.append(this.board[row][col]+" ");
+			}
+			boardStr.append("\n");
+		}
+		
+		return boardStr.toString();
 	}
 
 }

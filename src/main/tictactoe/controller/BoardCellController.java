@@ -6,23 +6,24 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import main.tictactoe.model.GameEngine;
+import main.tictactoe.utils.GeneralUtils;
 import main.tictactoe.view.BoardCell;
 
-public class BoardCellController implements ActionListener,MouseListener{
+public class BoardCellController extends AbstractController implements ActionListener,MouseListener{
 	private BoardCell cell;
-	private GameEngine ge;
 	
-	
-	
-
 	public BoardCellController(BoardCell cell, GameEngine ge) {
+		super(ge);
 		this.cell = cell;
-		this.ge = ge;
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		if(!ge.checkGameStatus()) {
+			return;
+		}
 		System.out.println("Mouse clicked on cell " + this.cell.toString());
+		ge.makeMove(cell.getRow(), cell.getCol());
 //		if (getModel().inPlay()) {
 //			getModel().makeMove(row, col);
 //			repaint();
@@ -44,14 +45,20 @@ public class BoardCellController implements ActionListener,MouseListener{
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		//System.out.println("Mouse entered cell " + this.cell.toString());
+		if(!ge.checkGameStatus()) {
+			return;
+		}
+		System.out.println("Mouse entered cell " + this.cell.toString());
 		this.cell.highlight();
 		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		//System.out.println("Mouse exited on cell " + this.cell.toString());
+		if(!ge.checkGameStatus()) {
+			return;
+		}
+		System.out.println("Mouse exited on cell " + this.cell.toString());
 		this.cell.unHighlight();
 		
 	}
