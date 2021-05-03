@@ -216,6 +216,9 @@ public class GameEngine {
 	public void setPlayerX(Player playerX) {
 		this.playerX = playerX;
 		this.gameRecord.setPlayerX(playerX);
+		if(playerX.getName().equals("Mr. Bean")) {
+			
+		}
 	}
 
 	public Player getPlayerO() {
@@ -235,6 +238,11 @@ public class GameEngine {
 		this.moves = moves;
 	}
 	
+	private void mrBeanMovesX() {
+		while(moves == 0||moves==2||moves==4||moves==6||moves==8){
+			
+		}
+	}
 	
 	
 	
