@@ -24,15 +24,13 @@ public class PlayerPanel extends AbstractPanel implements InterfacePanel {
 	private JPanel buttonsPanel;
 	private JPanel dataPanel;
 	private JPanel parentPanel;
-	private MainWindow parentFrame;
 	private PlayerPanelController playerPanelController;
 	private Signs sign;
 	
 
-	public PlayerPanel(MainWindow parentFrame,JPanel parentPanel,GameEngine ge,Signs sign) {
-		super(ge);
-		this.parentFrame=parentFrame;
-		this.playerPanelController = new PlayerPanelController(this.parentFrame,this,this.ge);
+	public PlayerPanel(MainWindow mainWindow,JPanel parentPanel,GameEngine ge,Signs sign) {
+		super(ge,mainWindow);
+		this.playerPanelController = new PlayerPanelController(super.getMainWindow(),this,super.getGe());
 		this.sign=sign;
 		initComponents();
 	}
@@ -190,8 +188,8 @@ public class PlayerPanel extends AbstractPanel implements InterfacePanel {
 		
 		if(ge.readyToPlay()) {
 //			parentFrame.showCard(MainWindow.getGameboard());
-			parentFrame.getContentsLeftPanel().getButtonsPanel().getComponent(0).setEnabled(true);
-			parentFrame.getContentsRightPanel().getButtonsPanel().getComponent(0).setEnabled(true);
+			mainWindow.getContentsLeftPanel().getButtonsPanel().getComponent(0).setEnabled(true);
+			mainWindow.getContentsRightPanel().getButtonsPanel().getComponent(0).setEnabled(true);
 		}
 		
 	}
@@ -230,14 +228,6 @@ public class PlayerPanel extends AbstractPanel implements InterfacePanel {
 
 	public void setGe(GameEngine ge) {
 		this.ge = ge;
-	}
-
-	public MainWindow getParentFrame() {
-		return parentFrame;
-	}
-
-	public void setParentFrame(MainWindow parentFrame) {
-		this.parentFrame = parentFrame;
 	}
 
 	public PlayerPanelController getPlayerPanelController() {

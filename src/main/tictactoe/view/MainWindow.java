@@ -22,7 +22,7 @@ import main.tictactoe.utils.ScreenUtils;
 public class MainWindow extends JFrame{
 	
 	private JFrame frame;
-	private JPanel bannerPanel;
+	private BannerPanel bannerPanel;
 	private JPanel contentsPanel;
 	private PlayerPanel contentsLeftPanel;
 	private PlayerPanel contentsRightPanel;
@@ -90,8 +90,8 @@ public class MainWindow extends JFrame{
 		
 		this.contentsMiddlePanel = new JPanel();
         this.contentsMiddlePanel.setLayout(new CardLayout());
-        this.contentsMiddlePanel.add(new GameBoard(this.ge),GB);
-        this.contentsMiddlePanel.add(new HallOfFame(this.ge),HOF);
+        this.contentsMiddlePanel.add(new GameBoard(this.ge,this),GB);
+        this.contentsMiddlePanel.add(new HallOfFame(this.ge,this),HOF);
         showCard(HOF);
         this.contentsLeftPanel=new PlayerPanel(this,this.contentsLeftPanel,this.ge,Signs.X);
         this.contentsRightPanel=new PlayerPanel(this,this.contentsRightPanel,this.ge,Signs.O);
@@ -105,22 +105,30 @@ public class MainWindow extends JFrame{
 	
 	}
 	
-	
+	public void zeroiseGame() {
+		this.contentsPanel.remove(contentsRightPanel);
+		this.contentsPanel.remove(contentsLeftPanel);
+		this.contentsLeftPanel=new PlayerPanel(this,this.contentsLeftPanel,this.ge,Signs.X);
+        this.contentsRightPanel=new PlayerPanel(this,this.contentsRightPanel,this.ge,Signs.O);
+        this.contentsPanel.add(this.contentsRightPanel,BorderLayout.EAST);
+        this.contentsPanel.add(this.contentsLeftPanel,BorderLayout.WEST);
+	}
 	
 	public void showCard(String cardname) {
 		CardLayout cl = (CardLayout) contentsMiddlePanel.getLayout();
         cl.show(contentsMiddlePanel, cardname);
         if(cardname.equals(GB)) {
         	contentsMiddlePanel.remove(0);
-        	contentsMiddlePanel.add(new GameBoard(this.ge),GB);
+        	contentsMiddlePanel.add(new GameBoard(this.ge,this),GB);
         	cl.show(contentsMiddlePanel, GB);
         }
         if(cardname.equals(HOF)) {
         	contentsMiddlePanel.remove(1);
-        	contentsMiddlePanel.add(new HallOfFame(this.ge),HOF);
+        	contentsMiddlePanel.add(new HallOfFame(this.ge,this),HOF);
         	cl.show(contentsMiddlePanel, HOF);
         }
         contentsMiddlePanel.repaint();
+        contentsMiddlePanel.revalidate();
 	}
 	
 	
@@ -134,13 +142,17 @@ public class MainWindow extends JFrame{
 		this.frame = frame;
 	}
 
-	public JPanel getBannerPanel() {
+	
+
+	protected BannerPanel getBannerPanel() {
 		return bannerPanel;
 	}
 
-	public void setBannerPanel(JPanel bannerPanel) {
+
+	protected void setBannerPanel(BannerPanel bannerPanel) {
 		this.bannerPanel = bannerPanel;
 	}
+
 
 	public JPanel getContentsPanel() {
 		return contentsPanel;

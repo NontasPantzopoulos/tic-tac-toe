@@ -24,8 +24,8 @@ public class BoardCell  extends AbstractPanel  {
 	public boolean highlighted;
 	
 
-	public BoardCell(int row, int col,GameEngine ge) {
-		super(ge);
+	public BoardCell(int row, int col,GameEngine ge,MainWindow mainWindow) {
+		super(ge,mainWindow);
 		this.setBackground(Color.WHITE);
 		this.addMouseListener(new BoardCellController(this, ge));
 		this.row = row;
@@ -51,6 +51,11 @@ public class BoardCell  extends AbstractPanel  {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		if(!ge.isGameActive()) {
+			super.getMainWindow().getBannerPanel().activateDoneButton();
+		}else {
+			super.getMainWindow().getBannerPanel().deActivateDoneButton();
+		}
 			
 		this.setBorder(new LineBorder(Color.DARK_GRAY, 3));
 		String mark = Signs.EMPTY.toString();
@@ -62,7 +67,7 @@ public class BoardCell  extends AbstractPanel  {
 		
 		Graphics2D g2d = (Graphics2D) g;
 		int size = 125;
-//		int size = this.getSize().width - 2 * CELL_PADDING;
+
 		g2d.setStroke(new BasicStroke(6));
 		if (mark == Signs.EMPTY.toString()) {
 			if (highlighted) {

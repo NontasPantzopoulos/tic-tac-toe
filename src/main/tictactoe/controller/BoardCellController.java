@@ -19,16 +19,13 @@ public class BoardCellController extends AbstractController implements ActionLis
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if(!ge.checkGameStatus()) {
+		if(!ge.isGameActive()) {
 			return;
 		}
 		System.out.println("Mouse clicked on cell " + this.cell.toString());
 		ge.makeMove(cell.getRow(), cell.getCol());
-//		if (getModel().inPlay()) {
-//			getModel().makeMove(row, col);
-//			repaint();
-//		}
-		
+//		cell.revalidate();
+//		cell.repaint();
 	}
 
 	@Override
@@ -45,20 +42,20 @@ public class BoardCellController extends AbstractController implements ActionLis
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		if(!ge.checkGameStatus()) {
+		if(!ge.isGameActive()) {
 			return;
 		}
-		System.out.println("Mouse entered cell " + this.cell.toString());
+		//System.out.println("Mouse entered cell " + this.cell.toString());
 		this.cell.highlight();
 		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		if(!ge.checkGameStatus()) {
+		if(!ge.isGameActive()) {
 			return;
 		}
-		System.out.println("Mouse exited on cell " + this.cell.toString());
+		//System.out.println("Mouse exited on cell " + this.cell.toString());
 		this.cell.unHighlight();
 		
 	}

@@ -54,6 +54,20 @@ public class GameEngine {
 		FileHandler.writePlayerRoster(playerRoster);
 	}
 	
+	public void zeroizeGame() {
+		initRoster();
+		this.gameRecord = new GameRecord();
+		this.board = new Board[9];
+		for(int i=0;i<this.board.length;i++) {
+			this.board[i]= new Board();
+		}
+		this.playerX=null;
+		this.playerO=null;
+		this.moves=0;
+		this.gameActive=false;
+		GeneralUtils.log("GameEngine", "GameEngine Initialization");
+	}
+	
 	public boolean readyToPlay() {
 		if(playerX==null || playerO==null) {
 			return false;
@@ -109,7 +123,7 @@ public class GameEngine {
 	
 	}
 	
-	public boolean checkGameStatus() {
+	public boolean isGameActive() {
 		return gameActive;
 	}
 	private void checkBoard() {

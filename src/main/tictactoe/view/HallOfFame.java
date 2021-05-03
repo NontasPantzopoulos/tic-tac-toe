@@ -18,8 +18,8 @@ import main.tictactoe.utils.SpringUtilities;
 public class HallOfFame extends AbstractPanel implements InterfacePanel{
 	
 
-	public HallOfFame(GameEngine ge) {
-		super(ge);
+	public HallOfFame(GameEngine ge,MainWindow mainWindow) {
+		super(ge,mainWindow);
 		initComponents();
 	}
 	

@@ -1,5 +1,6 @@
 package main.tictactoe.controller;
 
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -15,13 +16,13 @@ import main.tictactoe.utils.GeneralUtils;
 import main.tictactoe.view.MainWindow;
 
 public class BannerPanelController extends AbstractController implements ActionListener,MouseListener{
-	private MainWindow parentFrame;
+	private MainWindow mainWindow;
 	private JPanel parentPanel;
 	
 
 	public BannerPanelController(MainWindow parentFrame,JPanel parentPanel, GameEngine ge) {
 		super(ge);
-		this.parentFrame=parentFrame;
+		this.mainWindow=parentFrame;
 		this.parentPanel=parentPanel;
 	}
 
@@ -40,14 +41,20 @@ public class BannerPanelController extends AbstractController implements ActionL
 					JOptionPane.showMessageDialog(null,"The game will save the first 20 characters of the name.","Warning",JOptionPane.WARNING_MESSAGE);
 					Player p =new Player(selPlayer);
 					ge.getPlayerRoster().addPlayer(p);
-					parentFrame.showCard(parentFrame.getHalloffame());
+					mainWindow.showCard(mainWindow.getHalloffame());
 					
 				}
 				else {
 					Player p =new Player(selPlayer);
 					ge.getPlayerRoster().addPlayer(p);
-					parentFrame.showCard(parentFrame.getHalloffame());
+					mainWindow.showCard(mainWindow.getHalloffame());
 				}
+				
+				break;
+			case "Done":
+				mainWindow.showCard(MainWindow.getHalloffame());
+				super.ge.zeroizeGame();
+				mainWindow.zeroiseGame();
 				
 				break;
 			case "Quit":
@@ -61,6 +68,8 @@ public class BannerPanelController extends AbstractController implements ActionL
 		
 		
 	}
+	
+	
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -104,11 +113,11 @@ public class BannerPanelController extends AbstractController implements ActionL
 	}
 
 	public MainWindow getParentFrame() {
-		return parentFrame;
+		return mainWindow;
 	}
 
 	public void setParentFrame(MainWindow parentFrame) {
-		this.parentFrame = parentFrame;
+		this.mainWindow = parentFrame;
 	}
 
 	public JPanel getParentPanel() {

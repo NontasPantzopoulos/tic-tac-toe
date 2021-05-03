@@ -11,14 +11,15 @@ import main.tictactoe.model.GameEngine;
 @SuppressWarnings("serial")
 public abstract class AbstractPanel extends JPanel{
 	protected GameEngine ge;
+	protected MainWindow mainWindow;
 	
 	/**
 	 * Constructor with one argument of GameEngine instance.
 	 * @param ge
 	 */
-	public AbstractPanel(GameEngine ge) {
-		super();
+	public AbstractPanel(GameEngine ge, MainWindow mainWindow) {
 		this.ge = ge;
+		this.mainWindow = mainWindow;
 	}
 	//Getters and Setters.
 	protected GameEngine getGe() {
@@ -28,4 +29,12 @@ public abstract class AbstractPanel extends JPanel{
 	protected void setGe(GameEngine ge) {
 		this.ge = ge;
 	}
+	protected MainWindow getMainWindow() {
+		return mainWindow;
+	}
+	protected void setMainWindow(MainWindow mainWindow) {
+		this.mainWindow = mainWindow;
+	}
+	
+	
 }

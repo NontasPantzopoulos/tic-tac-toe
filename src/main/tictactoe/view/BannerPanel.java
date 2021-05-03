@@ -3,6 +3,7 @@ package main.tictactoe.view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -17,12 +18,11 @@ public class BannerPanel extends AbstractPanel implements InterfacePanel{
 	private JPanel leftSubPanel;
 	private JPanel middleJPanel;
 	private BannerPanelController bannerPanelController;
-	private MainWindow parentFrame;
+
 
 	public BannerPanel(MainWindow parentFrame,GameEngine ge) {
-		super(ge);
-		this.parentFrame=parentFrame;
-		this.bannerPanelController = new BannerPanelController(this.parentFrame,this,this.ge);
+		super(ge,parentFrame);
+		this.bannerPanelController = new BannerPanelController(parentFrame,this,ge);
 		initComponents();
 	}
 	
