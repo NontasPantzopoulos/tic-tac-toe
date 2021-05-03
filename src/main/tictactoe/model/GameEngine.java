@@ -45,7 +45,11 @@ public class GameEngine {
 	 * This method makes players with random scores and saves the data to the file.
 	 */
 	private void makeDummyPlayers() {
-		for(int i=0;i<4;i++) {
+		Player p1 = new Player("Mr. Bean");
+		Player p2 = new Player("Hal");
+		this.playerRoster.addPlayer(p1);
+		this.playerRoster.addPlayer(p2);
+		for(int i=0;i<2;i++) {
 			Player p = new Player();
 			p.setName("Player "+i);
 			p.setWins((int) (Math.random()*10) + 1);
