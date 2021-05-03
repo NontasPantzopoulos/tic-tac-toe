@@ -42,6 +42,36 @@ public class Player implements Serializable,Cloneable{
 		this.totalGames++;
 		calculateScore();
 	}
+	
+	public void addLastGame(GameRecord gr) {
+		for(int i=0;i<this.playersLastGames.length;i++) {
+			if(this.playersLastGames[i]==null) {
+				this.playersLastGames[i]=gr;
+				return;
+			}
+		}
+	}
+	
+	public void addBestGame(GameRecord gr) {
+//		for(int i=0;i<this.playersBestGames.length;i++) {
+//			if(this.playersBestGames[i]==null) {
+//				this.playersBestGames[i]=gr;
+//				return;
+//			}
+//		}
+		for(int i=0;i<this.playersBestGames.length;i++) {
+			if(this.playersBestGames[i]==null) {
+				this.playersBestGames[i]=gr;
+				return;
+			}else if(this.playersBestGames[i].getPlayerO().getName().equals(gr.getPlayerO().getName()) && this.playersBestGames[i].getScoreO()<gr.getScoreO()) {
+				this.playersBestGames[i]=gr;
+				return;
+			}else if(this.playersBestGames[i].getPlayerX().getName().equals(gr.getPlayerX().getName()) && this.playersBestGames[i].getScoreX()<gr.getScoreX()){
+				this.playersBestGames[i]=gr;
+				return;
+			}
+		}
+	}
 
 	/**
 	 * Score calculator

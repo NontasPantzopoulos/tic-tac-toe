@@ -1,47 +1,73 @@
 package main.tictactoe.model;
 
+import java.io.Serializable;
 import java.time.Instant;
-import java.util.HashMap;
-
 import main.tictactoe.model.enums.PlayerResult;
 
-public class GameRecord {
-	private Player[] players;
-	private PlayerResult[] results;
-	private float[] scores;
+@SuppressWarnings("serial")
+public class GameRecord implements Serializable{
+	private Player playerX;
+	private Player playerO;
+	private PlayerResult resultX;
+	private PlayerResult resultO;
+	private float scoreX=0.0f;
+	private float scoreO=0.0f;
 	private Instant timeOfStart;
 	private Instant timeOfEnd;
 	
 	public GameRecord() {
-		this.players = new Player[2];
-		this.results = new PlayerResult[2];
-		this.scores = new float[2];
+		this.playerX = new Player();
+		this.playerO = new Player();
 		this.timeOfStart=Instant.now();
 		this.timeOfEnd=Instant.now();
 	}
 
-	public Player[] getPlayers() {
-		return players;
+	public Player getPlayerX() {
+		return playerX;
 	}
 
-	public void setPlayers(Player[] players) {
-		this.players = players;
+	public void setPlayerX(Player playerX) {
+		this.playerX = playerX;
 	}
 
-	public PlayerResult[] getResults() {
-		return results;
+	public Player getPlayerO() {
+		return playerO;
 	}
 
-	public void setResults(PlayerResult[] results) {
-		this.results = results;
+	public void setPlayerO(Player playerO) {
+		this.playerO = playerO;
 	}
 
-	public float[] getScores() {
-		return scores;
+	public PlayerResult getResultX() {
+		return resultX;
 	}
 
-	public void setScores(float[] scores) {
-		this.scores = scores;
+	public void setResultX(PlayerResult resultX) {
+		this.resultX = resultX;
+	}
+
+	public PlayerResult getResultO() {
+		return resultO;
+	}
+
+	public void setResultO(PlayerResult resultO) {
+		this.resultO = resultO;
+	}
+
+	public float getScoreX() {
+		return scoreX;
+	}
+
+	public void setScoreX(float scoreX) {
+		this.scoreX = scoreX;
+	}
+
+	public float getScoreO() {
+		return scoreO;
+	}
+
+	public void setScoreO(float scoreO) {
+		this.scoreO = scoreO;
 	}
 
 	public Instant getTimeOfStart() {
@@ -59,8 +85,7 @@ public class GameRecord {
 	public void setTimeOfEnd(Instant timeOfEnd) {
 		this.timeOfEnd = timeOfEnd;
 	}
-	
-	
+
 	
 	
 

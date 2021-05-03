@@ -1,7 +1,9 @@
 package main.tictactoe.model;
 
+import java.time.Instant;
 import java.util.Optional;
 import main.tictactoe.io.FileHandler;
+import main.tictactoe.model.enums.PlayerResult;
 import main.tictactoe.model.enums.Signs;
 import main.tictactoe.utils.GeneralUtils;
 
@@ -134,9 +136,42 @@ public class GameEngine {
 		}
 		if(board[moves].isWin(getSign())) {
 			GeneralUtils.log("GameEngine", "Player "+getSign()+" is Winner!");
+			if(getSign()=="X") {
+				gameRecord.setResultX(PlayerResult.WINNER);
+				gameRecord.setResultO(PlayerResult.LOOSER);
+				playerX.addWin();
+				playerO.addLoss();
+				playerX.addBestGame(gameRecord);
+				playerX.addLastGame(gameRecord);
+				playerO.addBestGame(gameRecord);
+				playerO.addLastGame(gameRecord);
+				FileHandler.writePlayerRoster(playerRoster);
+			}else {
+				gameRecord.setResultX(PlayerResult.LOOSER);
+				gameRecord.setResultO(PlayerResult.WINNER);
+				gameRecord.setTimeOfEnd(Instant.now());
+				
+				playerX.addLoss();
+				playerO.addWin();
+				playerX.addBestGame(gameRecord);
+				playerX.addLastGame(gameRecord);
+				playerO.addBestGame(gameRecord);
+				playerO.addLastGame(gameRecord);
+				FileHandler.writePlayerRoster(playerRoster);
+			}
 			gameActive=false;
 		}
 		if(board[moves].isValid() && moves==8 && !board[moves].isWin(getSign())) {
+			gameRecord.setResultX(PlayerResult.DRAW);
+			gameRecord.setResultO(PlayerResult.DRAW);
+			gameRecord.setTimeOfEnd(Instant.now());
+			playerX.addDraw();
+			playerO.addDraw();
+			playerX.addBestGame(gameRecord);
+			playerX.addLastGame(gameRecord);
+			playerO.addBestGame(gameRecord);
+			playerO.addLastGame(gameRecord);
+			FileHandler.writePlayerRoster(playerRoster);
 			GeneralUtils.log("GameEngine", "Game result: Draw");
 			gameActive=false;
 		}
@@ -176,6 +211,7 @@ public class GameEngine {
 
 	public void setPlayerX(Player playerX) {
 		this.playerX = playerX;
+		this.gameRecord.setPlayerX(playerX);
 	}
 
 	public Player getPlayerO() {
@@ -184,6 +220,7 @@ public class GameEngine {
 
 	public void setPlayerO(Player playerO) {
 		this.playerO = playerO;
+		this.gameRecord.setPlayerO(playerO);
 	}
 
 	public int getMoves() {

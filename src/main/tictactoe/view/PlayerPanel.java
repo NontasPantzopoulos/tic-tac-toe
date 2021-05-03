@@ -5,8 +5,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.util.ArrayList;
-
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -104,13 +102,13 @@ public class PlayerPanel extends AbstractPanel implements InterfacePanel {
 					return;
 				}
 			}
-//			p = (Player) ge.getPlayerRoster().findPlayerByName(selPlayer);
-			p = (Player) ge.getPlayerRoster().findPlayerByName(selPlayer).clone();
-			p.setDraws(0);
-			p.setLosses(0);
-			p.setWins(0);
-			p.setScore(0);
-			ge.setPlayerX(p);	
+			p = (Player) ge.getPlayerRoster().findPlayerByName(selPlayer);
+//			p = (Player) ge.getPlayerRoster().findPlayerByName(selPlayer).clone();
+//			p.setDraws(0);
+//			p.setLosses(0);
+//			p.setWins(0);
+//			p.setScore(0);
+			ge.setPlayerX(p);
 			GeneralUtils.log("PlayerPanel", selPlayer+" selected as X");
 		
 		}
@@ -122,12 +120,12 @@ public class PlayerPanel extends AbstractPanel implements InterfacePanel {
 					return;
 				}
 			}
-//			p = (Player) ge.getPlayerRoster().findPlayerByName(selPlayer);
-			p = (Player) ge.getPlayerRoster().findPlayerByName(selPlayer).clone();
-			p.setDraws(0);
-			p.setLosses(0);
-			p.setWins(0);
-			p.setScore(0);
+			p = (Player) ge.getPlayerRoster().findPlayerByName(selPlayer);
+//			p = (Player) ge.getPlayerRoster().findPlayerByName(selPlayer).clone();
+//			p.setDraws(0);
+//			p.setLosses(0);
+//			p.setWins(0);
+//			p.setScore(0);
 			ge.setPlayerO(p);
 			GeneralUtils.log("PlayerPanel", selPlayer+" selected as O");
 		
@@ -175,7 +173,7 @@ public class PlayerPanel extends AbstractPanel implements InterfacePanel {
 		//selPlayerBestGames.setAlignmentX(Component.LEFT_ALIGNMENT);
 		for(int i=0;i<p.getPlayersBestGames().length;i++) {
 			if(p.getPlayersBestGames()[i]!=null) {
-				JLabel bestLabel = new JLabel(p.getPlayersBestGames()[i].getPlayers()[0].getName()+" vs "+p.getPlayersBestGames()[i].getPlayers()[1].getName());
+				JLabel bestLabel = new JLabel(p.getPlayersBestGames()[i].getPlayerX().getName()+" vs "+p.getPlayersBestGames()[i].getPlayerO().getName());
 				this.dataPanel.add(bestLabel);
 			}
 		}
