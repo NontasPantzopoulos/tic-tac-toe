@@ -1,5 +1,6 @@
 package main.tictactoe.model;
 
+import java.awt.Toolkit;
 import java.time.Instant;
 import java.util.Optional;
 import main.tictactoe.io.FileHandler;
@@ -60,6 +61,9 @@ public class GameEngine {
 		FileHandler.writePlayerRoster(playerRoster);
 	}
 	
+	/**
+	 * Initializes a new game
+	 */
 	public void zeroizeGame() {
 		initRoster();
 		this.gameRecord = new GameRecord();
@@ -74,21 +78,32 @@ public class GameEngine {
 		GeneralUtils.log("GameEngine", "GameEngine Initialization");
 	}
 	
+	/**
+	 * If the game has two players instances, then it is ready to play.
+	 * @return true or false
+	 */
 	public boolean readyToPlay() {
 		if(playerX==null || playerO==null) {
 			return false;
 		}
 		this.gameActive=true;
+		
 		return true;
 	}
 	
+	/**
+	 * This method is the basic method ..
+	 * @param row
+	 * @param col
+	 */
 	public void makeMove(int row, int col) {
-		if(moves>9) {
+		if(moves>8) {
 			return;
 		}
 		if(!gameActive) {
 			return;
 		}
+		
 		if(moves==0) {
 			String[][] newBoard = new String[3][3];
 			for(int rrow=0;rrow<3;rrow++) {
@@ -120,52 +135,50 @@ public class GameEngine {
 	}
 	
 	private String getSign() {
-		if(moves == 0||moves==2||moves==4||moves==6||moves==8){
+		if(moves%2 == 0){
 			return Signs.X.toString();
-		}
-		else {
-			return Signs.O.toString();
-		}
-	
+		}	
+		return Signs.O.toString();
 	}
 	
 	public boolean isGameActive() {
 		return gameActive;
 	}
+	
 	private void checkBoard() {
 		if(board[moves].isValid()) {
 			GeneralUtils.log("GameEngine", "Board:"+moves+" is Valid");
 		}else {
 			gameActive=false;
 		}
+		//Game has a winner
 		if(board[moves].isWin(getSign())) {
+			Toolkit.getDefaultToolkit().beep(); 
 			GeneralUtils.log("GameEngine", "Player "+getSign()+" is Winner!");
 			if(getSign()=="X") {
 				gameRecord.setResultX(PlayerResult.WINNER);
 				gameRecord.setResultO(PlayerResult.LOOSER);
 				playerX.addWin();
 				playerO.addLoss();
-				playerX.addBestGame(gameRecord);
-				playerX.addLastGame(gameRecord);
-				playerO.addBestGame(gameRecord);
-				playerO.addLastGame(gameRecord);
-				FileHandler.writePlayerRoster(playerRoster);
+				
 			}else {
 				gameRecord.setResultX(PlayerResult.LOOSER);
 				gameRecord.setResultO(PlayerResult.WINNER);
-				gameRecord.setTimeOfEnd(Instant.now());
-				
 				playerX.addLoss();
 				playerO.addWin();
-				playerX.addBestGame(gameRecord);
-				playerX.addLastGame(gameRecord);
-				playerO.addBestGame(gameRecord);
-				playerO.addLastGame(gameRecord);
-				FileHandler.writePlayerRoster(playerRoster);
 			}
 			gameActive=false;
+			gameRecord.setTimeOfEnd(Instant.now());
+			playerX.addBestGame(gameRecord);
+			playerX.addLastGame(gameRecord);
+			playerO.addBestGame(gameRecord);
+			playerO.addLastGame(gameRecord);
+			FileHandler.writePlayerRoster(playerRoster);
 		}
+		
+		//Game ends to draw
 		if(board[moves].isValid() && moves==8 && !board[moves].isWin(getSign())) {
+			Toolkit.getDefaultToolkit().beep(); 
 			gameRecord.setResultX(PlayerResult.DRAW);
 			gameRecord.setResultO(PlayerResult.DRAW);
 			gameRecord.setTimeOfEnd(Instant.now());
@@ -181,6 +194,9 @@ public class GameEngine {
 		}
 		
 	}
+	
+	
+	
 	//Getters And Setters
 
 	public PlayerRoster getPlayerRoster() {
@@ -199,8 +215,6 @@ public class GameEngine {
 		this.gameRecord = gameRecord;
 	}
 
-	
-
 	public Board[] getBoard() {
 		return board;
 	}
@@ -216,9 +230,6 @@ public class GameEngine {
 	public void setPlayerX(Player playerX) {
 		this.playerX = playerX;
 		this.gameRecord.setPlayerX(playerX);
-		if(playerX.getName().equals("Mr. Bean")) {
-			
-		}
 	}
 
 	public Player getPlayerO() {
@@ -237,16 +248,6 @@ public class GameEngine {
 	public void setMoves(int moves) {
 		this.moves = moves;
 	}
-	
-	private void mrBeanMovesX() {
-		while(moves == 0||moves==2||moves==4||moves==6||moves==8){
-			
-		}
-	}
-	
-	
-	
-	
 	
 
 }

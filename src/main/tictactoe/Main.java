@@ -1,6 +1,7 @@
 package main.tictactoe;
 
 import main.tictactoe.model.GameEngine;
+import main.tictactoe.model.PlayerMrBeanThread;
 import main.tictactoe.utils.GeneralUtils;
 import main.tictactoe.view.MainWindow;
 /**
@@ -19,6 +20,12 @@ public class Main {
 		GameEngine ge = new GameEngine();
 		//Initializes the main JFrame.
 		new MainWindow(ge);
+		
+		PlayerMrBeanThread pb =new PlayerMrBeanThread(ge);
+		Thread mrBeanThread = new Thread(pb);
+		mrBeanThread.run();
+
+		
 		
 	}
 }
