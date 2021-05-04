@@ -7,7 +7,7 @@ public class PlayerMrBeanThread implements Runnable{
 	private boolean play=true;
 	
 	public PlayerMrBeanThread(GameEngine ge) {
-		System.out.println("Plyer Bean created");
+		GeneralUtils.log("PlayerBean", "Player mr Bean Created succesfully.");
 		this.ge = ge;
 	}
 
