@@ -16,6 +16,7 @@ public class GameEngine {
 	private Player playerO;
 	private int moves=0;
 	private boolean gameActive=false;
+	private String playInfo;
 	
 
 	public GameEngine() {
@@ -147,6 +148,7 @@ public class GameEngine {
 	
 	private void checkBoard() {
 		if(board[moves].isValid()) {
+			setPlayInfo("Board:"+moves+" is Valid");
 			GeneralUtils.log("GameEngine", "Board:"+moves+" is Valid");
 		}else {
 			gameActive=false;
@@ -154,6 +156,7 @@ public class GameEngine {
 		//Game has a winner
 		if(board[moves].isWin(getSign())) {
 			Toolkit.getDefaultToolkit().beep(); 
+			setPlayInfo("Player "+getSign()+" is Winner!");
 			GeneralUtils.log("GameEngine", "Player "+getSign()+" is Winner!");
 			if(getSign()=="X") {
 				gameRecord.setResultX(PlayerResult.WINNER);
@@ -190,12 +193,11 @@ public class GameEngine {
 			playerO.addLastGame(gameRecord);
 			FileHandler.writePlayerRoster(playerRoster);
 			GeneralUtils.log("GameEngine", "Game result: Draw");
+			setPlayInfo("Game result: Draw");
 			gameActive=false;
 		}
 		
 	}
-	
-	
 	
 	//Getters And Setters
 
@@ -247,6 +249,14 @@ public class GameEngine {
 
 	public void setMoves(int moves) {
 		this.moves = moves;
+	}
+
+	public String getPlayInfo() {
+		return playInfo;
+	}
+
+	public void setPlayInfo(String playInfo) {
+		this.playInfo = playInfo;
 	}
 	
 

@@ -8,17 +8,22 @@ import java.awt.event.MouseListener;
 import main.tictactoe.model.GameEngine;
 import main.tictactoe.utils.GeneralUtils;
 import main.tictactoe.view.BoardCell;
+import main.tictactoe.view.GameBoard;
 
 public class BoardCellController extends AbstractController implements ActionListener,MouseListener{
 	private BoardCell cell;
+	private GameBoard gb;
 	
-	public BoardCellController(BoardCell cell, GameEngine ge) {
+	public BoardCellController(BoardCell cell, GameEngine ge,GameBoard gb) {
 		super(ge);
+		this.gb=gb;
 		this.cell = cell;
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		
+		gb.printinfo(ge.getPlayInfo());
 		if(!ge.isGameActive()) {
 			return;
 		}
@@ -42,6 +47,7 @@ public class BoardCellController extends AbstractController implements ActionLis
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
+		gb.printinfo(ge.getPlayInfo());
 		if(!ge.isGameActive()) {
 			return;
 		}
@@ -52,6 +58,8 @@ public class BoardCellController extends AbstractController implements ActionLis
 
 	@Override
 	public void mouseExited(MouseEvent e) {
+		gb.printinfo(ge.getPlayInfo());
+		
 		if(!ge.isGameActive()) {
 			return;
 		}

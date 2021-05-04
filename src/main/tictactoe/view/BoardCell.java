@@ -22,12 +22,13 @@ public class BoardCell  extends AbstractPanel  {
 	public static final int CELL_PADDING = 10;
 	int row, col;	
 	public boolean highlighted;
+	private GameBoard gb;
 	
 
-	public BoardCell(int row, int col,GameEngine ge,MainWindow mainWindow) {
+	public BoardCell(int row, int col,GameEngine ge,MainWindow mainWindow,GameBoard gb) {
 		super(ge,mainWindow);
 		this.setBackground(Color.WHITE);
-		this.addMouseListener(new BoardCellController(this, ge));
+		this.addMouseListener(new BoardCellController(this, ge,gb));
 		this.row = row;
 		this.col = col;
 		this.highlighted = false;
