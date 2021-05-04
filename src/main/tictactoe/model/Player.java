@@ -95,7 +95,7 @@ public class Player implements Serializable,Cloneable{
 	 * @param name
 	 */
 	public void setName(String name) {
-		String pname = name.strip();
+		String pname = name.trim();
 		if(pname.length()>20) {
 			pname = pname.substring(0, 20);
 		}
