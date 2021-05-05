@@ -23,7 +23,8 @@ public class Main {
 		
 		PlayerMrBeanThread pb =new PlayerMrBeanThread(ge);
 		Thread mrBeanThread = new Thread(pb);
-		mrBeanThread.run();
+		mrBeanThread.setName("mrBeanThread");
+		mrBeanThread.start();
 
 		
 		

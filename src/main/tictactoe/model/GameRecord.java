@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.time.Instant;
 import main.tictactoe.model.enums.PlayerResult;
 
+/**
+ * GameRecord class, which holds each game information
+ *
+ */
 @SuppressWarnings("serial")
 public class GameRecord implements Serializable{
 	private Player playerX;
@@ -15,6 +19,7 @@ public class GameRecord implements Serializable{
 	private Instant timeOfStart;
 	private Instant timeOfEnd;
 	
+	//Constructor
 	public GameRecord() {
 		this.playerX = new Player();
 		this.playerO = new Player();

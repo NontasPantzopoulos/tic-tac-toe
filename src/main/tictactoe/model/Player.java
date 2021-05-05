@@ -2,6 +2,10 @@ package main.tictactoe.model;
 
 import java.io.Serializable;
 
+/**
+ * The tic tac toe Player class.
+ *
+ */
 @SuppressWarnings("serial")
 public class Player implements Serializable,Cloneable{
 	private String name;

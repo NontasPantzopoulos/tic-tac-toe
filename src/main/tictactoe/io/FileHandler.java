@@ -8,9 +8,20 @@ import java.io.ObjectOutputStream;
 import main.tictactoe.model.PlayerRoster;
 import main.tictactoe.utils.GeneralUtils;
 
+/**
+ * This class is the responsible class for reading/writing (serializing/deserializing) the
+ * PlayerRoster class, which holds all the game data and players.
+ * It consists of static methods in order to be accessed by all classes independently.
+ */
 public class FileHandler {
+	//The user's profile path from the OS
 	private static final String userPath = System.getProperty("user.home") + File.separator + "tictactoe.ser";
 	
+	/** 
+	 * Reads the file tictactoe.ser from the user's profile
+	 * If it is not found writes an error to console.
+	 * @return PlayerRoster instance
+	 */
 	public static PlayerRoster readPlayerRoster() {
 		try {
 			FileInputStream fileIn = new FileInputStream(userPath);
@@ -25,6 +36,10 @@ public class FileHandler {
 		return null;
 	}
 	
+	/**
+	 * Writes an instance of PlayerRoster class to a file in user's profile.
+	 * @param playerRoster
+	 */
 	public static void writePlayerRoster(PlayerRoster playerRoster) {
 		try {
             FileOutputStream fileOut = new FileOutputStream(userPath);
@@ -43,8 +58,5 @@ public class FileHandler {
 	public static String getUserpath() {
 		return userPath;
 	}
-	
-	
-	
 
 }

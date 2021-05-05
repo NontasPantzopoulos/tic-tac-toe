@@ -1,12 +1,16 @@
 package main.tictactoe.model;
 
-import java.util.Arrays;
-
 import main.tictactoe.model.enums.Signs;
 
+/**
+ * The Board class is an immutable class.
+ * It represents the tic tac toe game board logically.
+ *
+ */
 public final class Board {
 	private final String[][] board;
-
+	
+	//Constructor
 	public Board() {
 		String[][] emptyBoard= new String[3][3];
 		for(int row=0;row<3;row++) {
@@ -17,6 +21,7 @@ public final class Board {
 		this.board = emptyBoard;
 	}
 	
+	//Getters and Setters
 	public Board(String[][] b) {
 		this.board = b;
 	}
@@ -25,6 +30,10 @@ public final class Board {
 		return board;
 	}
 	
+	/**
+	 * Returns the number of empty cells of a board
+	 * @return int
+	 */
 	public int getNumOfNullCells(){
 		int nullcounter = 0;
 		for (int row=0;row<3;row++) {
@@ -37,6 +46,10 @@ public final class Board {
 		return nullcounter;
 	}
 	
+	/**
+	 * Returns the number of filled cells of a board
+	 * @return int
+	 */
 	public int getNumOfFullCells(){
 		int fullcounter = 0;
 		for (int row=0;row<3;row++) {
@@ -49,6 +62,10 @@ public final class Board {
 		return fullcounter;
 	}
 	
+	/**
+	 * Returns the number of X's
+	 * @return int
+	 */
 	public int getNumOfX(){
 		int xcounter = 0;
 		for (int row=0;row<3;row++) {
@@ -61,6 +78,10 @@ public final class Board {
 		return xcounter;
 	}
 	
+	/**
+	 * Returns the number of O's
+	 * @return int
+	 */
 	public int getNumOfO(){
 		int ocounter = 0;
 		for (int row=0;row<3;row++) {
@@ -73,6 +94,10 @@ public final class Board {
 		return ocounter;
 	}
 	
+	/**
+	 * Returns true if a Board is valid, according to the regulations of the game
+	 * @return boolean
+	 */
 	public boolean isValid() {
 		int xCount=getNumOfX();
 		int oCount=getNumOfO();
@@ -96,6 +121,11 @@ public final class Board {
 		return true;
 	}
 	
+	/**
+	 * Ths method takes as parameter a String (X or O) and checks if its the winner
+	 * @param s
+	 * @return boolean
+	 */
 	public boolean isWin(String s) {
 		//check first row
 		if(this.board[0][0]==s && this.board[0][1]==s && this.board[0][2]==s) {

@@ -8,6 +8,19 @@ import main.tictactoe.model.enums.PlayerResult;
 import main.tictactoe.model.enums.Signs;
 import main.tictactoe.utils.GeneralUtils;
 
+/**
+ * This class is the logic heart of the game
+ * it decides which player is turn by the number of moves
+ * Typically in tictactoe the maximum moves of a game are 9
+ * Taking into consideration that X always moves first.
+ * so move0 -> X
+ * move1 -> O
+ * move2 -> X
+ * and so on.
+ * This means even number of moves means tha X plays
+ * and odd number of moves the O plays.
+ *
+ */
 public class GameEngine {
 	private PlayerRoster playerRoster;
 	private GameRecord gameRecord;
@@ -18,7 +31,7 @@ public class GameEngine {
 	private boolean gameActive=false;
 	private String playInfo;
 	
-
+	//Constructor
 	public GameEngine() {
 		initRoster();
 		this.gameRecord = new GameRecord();
@@ -30,6 +43,11 @@ public class GameEngine {
 		
 	}
 	
+	/**
+	 * Initializes the PlayerRoster class
+	 * If it is found on file system uses the file
+	 * If it is not found, creates dummy players.
+	 */
 	private void initRoster() {
 		Optional<PlayerRoster> pRoster = Optional.ofNullable(FileHandler.readPlayerRoster());
 		if(pRoster.isPresent()) {
@@ -45,6 +63,7 @@ public class GameEngine {
 	
 	/**
 	 * This method makes players with random scores and saves the data to the file.
+	 * It also creates the Hal and Mr. Bean players.
 	 */
 	private void makeDummyPlayers() {
 		Player p1 = new Player("Mr. Bean");
@@ -80,7 +99,7 @@ public class GameEngine {
 	}
 	
 	/**
-	 * If the game has two players instances, then it is ready to play.
+	 * If the game has two players instances set, then it is ready to play.
 	 * @return true or false
 	 */
 	public boolean readyToPlay() {
@@ -93,7 +112,11 @@ public class GameEngine {
 	}
 	
 	/**
-	 * This method is the basic method ..
+	 * This method is the basic method to make a move it the game
+	 * It takes two parameters row and col which represents the point of movement.
+	 * If it is the first move, it creates an empty Board class.
+	 * If it is the 2nd-9th move it gets a copy of the previous Board and makes a copy of that including
+	 * the present movement.
 	 * @param row
 	 * @param col
 	 */
@@ -125,16 +148,27 @@ public class GameEngine {
 				board[moves] = new Board(stringBoard);
 			}
 			else {
+				//If someone clicks on a cell that there is already a value in it,
+				//it does nothing
 				GeneralUtils.log("GameEngine", "There is already a value to the cell.");
 				return;
 			}
 		}
 		GeneralUtils.log("GameEngine", "Move:"+moves+"-"+row+","+col);
 		System.out.println(board[moves].toString());
+		//In every move, the Board is checked for validation and winning
 		checkBoard();
+		//Increases the move counter
 		moves++;
 	}
 	
+	/**
+	 * This method returns the sign who's turn is now.
+	 * The sign is defined by the number of movement 0-9
+	 * If the number is even then the sign is X
+	 * If the sign is odd the sign is O
+	 * @return String
+	 */
 	private String getSign() {
 		if(moves%2 == 0){
 			return Signs.X.toString();
@@ -146,6 +180,11 @@ public class GameEngine {
 		return gameActive;
 	}
 	
+	/**
+	 * Method which calls the Board methods to decide if the game is Active.
+	 * If there is a winner or draw, sets the gameActive value to false.
+	 * This method also sets the GameRecords to the involved players.
+	 */
 	private void checkBoard() {
 		if(board[moves].isValid()) {
 			setPlayInfo("Board:"+moves+" is Valid");
