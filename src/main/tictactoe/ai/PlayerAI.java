@@ -1,5 +1,8 @@
-package main.tictactoe.model;
+package main.tictactoe.ai;
 
+import main.tictactoe.model.Board;
+import main.tictactoe.model.GameEngine;
+import main.tictactoe.model.Player;
 import main.tictactoe.model.enums.Signs;
 import main.tictactoe.utils.GeneralUtils;
 
@@ -40,34 +43,15 @@ public class PlayerAI implements Runnable{
 				if(ge.getPlayerX().getName().equals("Hal")) {
 					this.player = ge.getPlayerX();
 					this.sign = Signs.X;
-					this.tempGe.setPlayerX(this.player);
-					this.tempGe.setPlayerO(ge.getPlayerO());
-//					alphaBetaPruning(this.sign, this.player, ge.getBoard()[ge.getMoves()], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, ge.getMoves());
-					if(this.tempGe.getMoves()==0) {
-						alphaBetaPruning(this.sign, this.tempGe.getBoard()[this.tempGe.getMoves()], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, 0);
-					}else {
-						alphaBetaPruning(this.sign, this.tempGe.getBoard()[this.tempGe.getMoves()-1], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, this.tempGe.getMoves()-1);
-					}
+					
 					
 					
 				}	
 				else if(ge.getPlayerO().getName().equals("Hal")) {
 					this.player = ge.getPlayerO();
 					this.sign = Signs.O;
-					this.tempGe.setPlayerX(ge.getPlayerO());
-					this.tempGe.setPlayerO(this.player);
-//					alphaBetaPruning(this.sign, this.player, ge.getBoard()[ge.getMoves()], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, ge.getMoves());
-					if(this.tempGe.getMoves()==0) {
-						alphaBetaPruning(this.sign,this.tempGe.getBoard()[this.tempGe.getMoves()], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, 0);
-					}else {
-						alphaBetaPruning(this.sign, this.tempGe.getBoard()[this.tempGe.getMoves()-1], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, this.tempGe.getMoves()-1);
-					}
+					
 				}
-				
-				
-				
-				
-				
 				Thread.sleep(SLEEP_TIME);
 			}
 			

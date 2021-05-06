@@ -1,5 +1,6 @@
-package main.tictactoe.model;
+package main.tictactoe.ai;
 
+import main.tictactoe.model.GameEngine;
 import main.tictactoe.utils.GeneralUtils;
 
 public class PlayerMrBeanThread implements Runnable{
