@@ -5,16 +5,18 @@ import main.tictactoe.utils.GeneralUtils;
 
 public class PlayerAI implements Runnable{
 	private GameEngine ge;
+	private GameEngine tempGe;
 	private int maxPly =8;
 	private Signs sign;
 	private Player player;
 	private boolean play=true;
-	private static final long SLEEP_TIME=200;
+	private static final long SLEEP_TIME=2000;
 	
 	
 
 	public PlayerAI(GameEngine ge) {
 		this.ge = ge;
+		this.tempGe = new GameEngine();
 	}
 
 
@@ -38,11 +40,13 @@ public class PlayerAI implements Runnable{
 				if(ge.getPlayerX().getName().equals("Hal")) {
 					this.player = ge.getPlayerX();
 					this.sign = Signs.X;
+					this.tempGe.setPlayerX(this.player);
+					this.tempGe.setPlayerO(ge.getPlayerO());
 //					alphaBetaPruning(this.sign, this.player, ge.getBoard()[ge.getMoves()], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, ge.getMoves());
-					if(ge.getMoves()==0) {
-						alphaBetaPruning(this.sign, ge.getBoard()[ge.getMoves()], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, 0);
+					if(this.tempGe.getMoves()==0) {
+						alphaBetaPruning(this.sign, this.tempGe.getBoard()[this.tempGe.getMoves()], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, 0);
 					}else {
-						alphaBetaPruning(this.sign, ge.getBoard()[ge.getMoves()-1], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, ge.getMoves()-1);
+						alphaBetaPruning(this.sign, this.tempGe.getBoard()[this.tempGe.getMoves()-1], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, this.tempGe.getMoves()-1);
 					}
 					
 					
@@ -50,11 +54,13 @@ public class PlayerAI implements Runnable{
 				else if(ge.getPlayerO().getName().equals("Hal")) {
 					this.player = ge.getPlayerO();
 					this.sign = Signs.O;
+					this.tempGe.setPlayerX(ge.getPlayerO());
+					this.tempGe.setPlayerO(this.player);
 //					alphaBetaPruning(this.sign, this.player, ge.getBoard()[ge.getMoves()], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, ge.getMoves());
-					if(ge.getMoves()==0) {
-						alphaBetaPruning(this.sign, ge.getBoard()[ge.getMoves()], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, 0);
+					if(this.tempGe.getMoves()==0) {
+						alphaBetaPruning(this.sign,this.tempGe.getBoard()[this.tempGe.getMoves()], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, 0);
 					}else {
-						alphaBetaPruning(this.sign, ge.getBoard()[ge.getMoves()-1], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, ge.getMoves()-1);
+						alphaBetaPruning(this.sign, this.tempGe.getBoard()[this.tempGe.getMoves()-1], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, this.tempGe.getMoves()-1);
 					}
 				}
 				
@@ -75,18 +81,20 @@ public class PlayerAI implements Runnable{
 	
 	private int alphaBetaPruning (Signs sign, Board board, double alpha, double beta, int currentPly) {
 		GeneralUtils.log("PlayerAI", " alphabeta "+currentPly+" alpha:"+alpha+" beta:"+beta);
-        if (currentPly++ == maxPly || !ge.isGameActive()) {
+        if (currentPly++ == maxPly || !tempGe.isGameActive()) {
             return score(player, board);
         }
 
-        if (ge.getTurnSign()==sign) {
+        if (tempGe.getTurnSign()==sign) {
 //        	System.out.println("Max");
 //        	return 1;
-            return getMax(sign, player, board, alpha, beta, currentPly);
+        	System.out.println(tempGe.getTurnSign());
+            return getMax(tempGe.getTurnSign(), player, board, alpha, beta, currentPly);
         }else {
 //        	System.out.println("Min");
 //        	return -1;
-            return getMin(sign, player, board, alpha, beta, currentPly);
+        	System.out.println(tempGe.getTurnSign());
+            return getMin(tempGe.getTurnSign(), player, board, alpha, beta, currentPly);
         }
     }
 	
@@ -125,7 +133,8 @@ public class PlayerAI implements Runnable{
         	}
         }
         if (bestRow!=-1 || bestCol!=-1) {
-            ge.makeMove(bestRow, bestCol);
+        	System.out.println(bestRow+","+bestCol);
+            tempGe.makeMove(bestRow, bestCol);
         }
         return (int)alpha;
         
@@ -185,7 +194,8 @@ public class PlayerAI implements Runnable{
         	}
         }
         if (bestRow!=-1 || bestCol!=-1) {
-            //ge.makeMove(bestRow, bestCol);
+        	System.out.println(bestRow+","+bestCol);
+        	tempGe.makeMove(bestRow, bestCol);
         }
         return (int)beta;
         
