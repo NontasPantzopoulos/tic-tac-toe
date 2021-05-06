@@ -176,6 +176,13 @@ public class GameEngine {
 		return Signs.O.toString();
 	}
 	
+	public Signs getTurnSign() {
+		if(moves%2 == 0){
+			return Signs.X;
+		}	
+		return Signs.O;
+	}
+	
 	public boolean isGameActive() {
 		return gameActive;
 	}
