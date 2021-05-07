@@ -15,16 +15,16 @@ public class AlphaBetaPruningTest {
 
 	@Before
 	public void setUpBeforeClass() throws Exception {
-		String[][] stringB3 = {{"O","X","X"},
-								{"_","O","_"},
-								{"O","_","X"}};
+		String[][] stringB3 = {{"_","_","_"},
+								{"_","_","_"},
+								{"_","_","_"}};
 		b3 = new Board(stringB3);
 		
 	}
 
 	@Test
 	public void testBestMove() throws CloneNotSupportedException {
-		int[] bestMove = AlphaBetaPruning.bestMove(b3, Signs.X,0);
+		int[] bestMove = AlphaBetaPruning.bestMove(b3.getDeepCopy(), Signs.X,0);
 		System.out.println(bestMove[0]+","+bestMove[1]);
 	}
 

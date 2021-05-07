@@ -5,23 +5,24 @@ import main.tictactoe.model.enums.Signs;
 
 public class AlphaBetaPruning {
 	
-	private static int maxDepth=8;
+	private static int maxDepth=12;
 
 	private AlphaBetaPruning() {
 		
 	}
 	
-	public static int[] bestMove(Board board, Signs sign,int depth) throws CloneNotSupportedException {
+	public static int[] bestMove(Board board, Signs sign,int depth)  {
 		int[] bestMove = new int[]{-1, -1};
 		int bestValue=Integer.MIN_VALUE;
-		Board newBoard = (Board) board.clone();
+		Board newBoard = board.getDeepCopy();
 		
 		for(int row=0;row<3;row++) {
 			for(int col=0;col<3;col++) {			
 				if(newBoard.getBoard()[row][col]==Signs.EMPTY.toString()) {
-					newBoard.getBoard()[row][col]=sign.toString();
+					newBoard.setSign(row, col, sign);
 					
 					int moveValue =alphaBetaPruning(sign,newBoard, Integer.MIN_VALUE, Integer.MAX_VALUE, depth);
+					newBoard.setSign(row, col, Signs.EMPTY);
 					if(moveValue>bestValue) {
 						bestMove[0] = row;
                         bestMove[1] = col;
@@ -34,90 +35,86 @@ public class AlphaBetaPruning {
 		return bestMove;
 	}
 	
-	private static int alphaBetaPruning(Signs sign, Board board, int alpha, int beta, int depth) {
+	private static int alphaBetaPruning( Signs sign,Board board, int alpha, int beta, int depth) {
+		System.out.println("ab"+alpha+" "+beta);
 		
-		if (depth++ == maxDepth || board.getNumOfFullCells()==9) {
-            return score(sign,board);
+		Board myBoard = board.getDeepCopy();
+		if (depth++ == maxDepth) {
+            return score(board);
         }
-		try {
+		
 		if(sign==Signs.X) {
+			int max = getMax( myBoard, alpha, beta, depth);
+			System.out.println(max);
 			
-				return getMax(sign, board, alpha, beta, depth);
-			
+			return max;
 		}else {
+			int min= getMin( myBoard, alpha, beta, depth);
+			System.out.println(min);
 			
-				return getMin(sign, board, alpha, beta, depth);
+			return min;
 			
 		}
-		} catch (CloneNotSupportedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		finally {
-			return score(sign,board);
-		}
+		
 	}
 	
-	private static int getMax(Signs sign,Board board,int alpha,int beta,int currentDepth) throws CloneNotSupportedException {
+	private static int getMax(Board board,int alpha,int beta,int currentDepth) {
 		int highestVal = Integer.MIN_VALUE;
-		Board newBoard = (Board) board.clone();
+		Board newBoard = board.getDeepCopy();
 		
 		for(int row=0;row<3;row++) {
 			for(int col=0;col<3;col++) {			
 				if(newBoard.getBoard()[row][col]==Signs.EMPTY.toString()) {
-					newBoard.getBoard()[row][col]=sign.toString();
+					newBoard.setSign(row, col, Signs.X);
 					
-					highestVal = Math.max(highestVal, alphaBetaPruning(sign, newBoard, alpha, beta, currentDepth));
+					highestVal = Math.max(highestVal, alphaBetaPruning(Signs.O,newBoard, alpha, beta, currentDepth));
+					newBoard.setSign(row, col, Signs.EMPTY);
 					alpha = Math.max(alpha, highestVal);
                     if (alpha >= beta) {
+                    	System.out.println("max:"+highestVal);
                         return highestVal;
                     }
 				}
 			}
 		}
+    	System.out.println("max:"+highestVal);
+
 		return highestVal;
 	}
 	
-	private static int getMin(Signs sign,Board board,int alpha,int beta,int currentDepth) throws CloneNotSupportedException {
+	private static int getMin(Board board,int alpha,int beta,int currentDepth) {
 		int lowestVal = Integer.MAX_VALUE;
-		Board newBoard = (Board) board.clone();
+		Board newBoard = board.getDeepCopy();
 		
 		for(int row=0;row<3;row++) {
 			for(int col=0;col<3;col++) {			
 				if(newBoard.getBoard()[row][col]==Signs.EMPTY.toString()) {
-					newBoard.getBoard()[row][col]=sign.toString();
+					newBoard.setSign(row, col, Signs.O);
 					
-					lowestVal = Math.min(lowestVal,alphaBetaPruning(sign, newBoard, alpha, beta, currentDepth));
+					lowestVal = Math.min(lowestVal,alphaBetaPruning(Signs.X,newBoard, alpha, beta, currentDepth));
+					newBoard.setSign(row, col, Signs.EMPTY);
 					beta = Math.min(beta, lowestVal);
                     if (beta <= alpha) {
+                    	System.out.println("min:"+lowestVal);
                         return lowestVal;
                     }
 				}
 			}
 		}
 		
-		
+		System.out.println("min:"+lowestVal);
 		return lowestVal;
 	}
 	
 	
-	private static int score (Signs sign, Board board) {
-		//System.out.println(board.toString());
-        if (sign == null) {
-            throw new IllegalArgumentException("Sign must not be null");
-        }
-        if (sign==Signs.X && board.isWin(Signs.X.toString())) {
+	private static int score (Board board) {
+		System.out.println(board.toString());
+        if (board.isWin(Signs.X.toString())) {
         	//System.out.println(1);
-            return 10;
-        } else if (sign==Signs.X && board.isWin(Signs.O.toString())) {
+            return 1;
+        } else if (board.isWin(Signs.O.toString())) {
         	//System.out.println(-1);
-            return -10;
-        } else if(sign==Signs.O && board.isWin(Signs.O.toString())) {
-        	//System.out.println(1);
-        	return 10;
-        }else if (sign==Signs.O && board.isWin(Signs.X.toString())) {
-        	//System.out.println(-1);
-        	return -10;
+            return -1;
         }else {
         	//System.out.println(0);
             return 0;

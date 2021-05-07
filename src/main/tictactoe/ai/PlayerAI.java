@@ -53,7 +53,7 @@ public class PlayerAI implements Runnable{
 						}
 					}else {
 
-						this.aiMove = AlphaBetaPruning.bestMove(ge.getBoard()[ge.getMoves()-1].getDeepCopy(), Signs.X,ge.getMoves());
+						this.aiMove = AlphaBetaPruning.bestMove(ge.getBoard()[ge.getMoves()-1].getDeepCopy(), Signs.X,ge.getMoves()-1);
 						if(aiMove[0]!=-1 || aiMove[1]!=-1) {
 							System.out.println("AI:"+aiMove[0]+","+aiMove[1]);
 							ge.makeMove(aiMove[0], aiMove[1]);
@@ -71,7 +71,7 @@ public class PlayerAI implements Runnable{
 						}
 					}else {
 						
-						this.aiMove = AlphaBetaPruning.bestMove(ge.getBoard()[ge.getMoves()-1].getDeepCopy(), Signs.O,ge.getMoves());
+						this.aiMove = AlphaBetaPruning.bestMove(ge.getBoard()[ge.getMoves()-1].getDeepCopy(), Signs.O,ge.getMoves()-1);
 						if(aiMove[0]!=-1 || aiMove[1]!=-1) {
 							System.out.println("AI:"+aiMove[0]+","+aiMove[1]);
 							ge.makeMove(aiMove[0], aiMove[1]);
