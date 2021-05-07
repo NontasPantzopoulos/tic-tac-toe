@@ -63,7 +63,8 @@ public class BoardCell  extends AbstractPanel  {
 		if(ge.getMoves()>0) {
 			mark = ge.getBoard()[ge.getMoves()-1].getBoard()[row][col];
 		}else {
-			mark = ge.getBoard()[ge.getMoves()].getBoard()[row][col];
+//			mark = ge.getBoard()[ge.getMoves()].getBoard()[row][col];
+			
 		}
 		
 		Graphics2D g2d = (Graphics2D) g;

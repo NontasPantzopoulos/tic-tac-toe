@@ -52,10 +52,10 @@ public class PlayerMrBeanThread implements Runnable{
 					}
 				}
 				//Thread sleep 100 milliseconds
-				Thread.sleep(100);		
+				Thread.sleep(2000);		
 			}
 			//Thread sleep 100 milliseconds
-			Thread.sleep(100);
+			Thread.sleep(2000);
 		}			
 	}
 

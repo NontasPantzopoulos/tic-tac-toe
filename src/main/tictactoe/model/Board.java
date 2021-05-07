@@ -7,8 +7,8 @@ import main.tictactoe.model.enums.Signs;
  * It represents the tic tac toe game board logically.
  *
  */
-public final class Board {
-	private final String[][] board;
+public class Board implements Cloneable{
+	private String[][] board;
 	
 	//Constructor
 	public Board() {
@@ -94,6 +94,8 @@ public final class Board {
 		return ocounter;
 	}
 	
+	
+	
 	/**
 	 * Returns true if a Board is valid, according to the regulations of the game
 	 * @return boolean
@@ -161,6 +163,24 @@ public final class Board {
 		}
 		return false;
 	}
+	
+	public void setSign(int row,int col,Signs sign) {
+		if(this.board[row][col]==Signs.EMPTY.toString()) {
+			this.board[row][col]=sign.toString();
+		}
+		
+	}
+	
+	public Board getDeepCopy () {
+        Board board = new Board();
+
+        for (int i = 0; i < board.board.length; i++) {
+            board.board[i] = this.board[i].clone();
+        }
+
+        
+        return board;
+    }
 
 	@Override
 	public String toString() {
@@ -174,5 +194,10 @@ public final class Board {
 		
 		return boardStr.toString();
 	}
+	
+	public Object clone() throws CloneNotSupportedException
+    {
+        return super.clone();
+    }
 
 }

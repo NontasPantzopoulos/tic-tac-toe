@@ -1,6 +1,7 @@
 package main.tictactoe;
 
 
+import main.tictactoe.ai.PlayerAI;
 import main.tictactoe.ai.PlayerMrBeanThread;
 import main.tictactoe.model.GameEngine;
 import main.tictactoe.utils.GeneralUtils;
@@ -28,10 +29,10 @@ public class Main {
 		mrBeanThread.start();
 		
 		
-//		PlayerAI ai = new PlayerAI(ge);
-//		Thread aiThread = new Thread(ai);
-//		aiThread.setName("AIThread");
-//		aiThread.start();
+		PlayerAI ai = new PlayerAI(ge);
+		Thread aiThread = new Thread(ai);
+		aiThread.setName("AIThread");
+		aiThread.start();
 
 		
 		

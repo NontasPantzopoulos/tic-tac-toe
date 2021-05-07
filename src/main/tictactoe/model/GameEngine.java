@@ -121,6 +121,7 @@ public class GameEngine {
 	 * @param col
 	 */
 	public void makeMove(int row, int col) {
+		
 		if(moves>8) {
 			return;
 		}
@@ -129,30 +130,39 @@ public class GameEngine {
 		}
 		
 		if(moves==0) {
-			String[][] newBoard = new String[3][3];
-			for(int rrow=0;rrow<3;rrow++) {
-				for(int ccol=0;ccol<3;ccol++) {
-					if(ccol==col && rrow==row) {
-						newBoard[rrow][ccol]=getSign();
-					}
-					else {
-						newBoard[rrow][ccol]=Signs.EMPTY.toString();
-					}
-				}
-			}
-			board[0]=new Board(newBoard);
+			board[0]=new Board();
+			board[0].setSign(row, col, Signs.valueOf(getSign()));
+//			String[][] newBoard = new String[3][3];
+//			for(int rrow=0;rrow<3;rrow++) {
+//				for(int ccol=0;ccol<3;ccol++) {
+//					if(ccol==col && rrow==row) {
+//						newBoard[rrow][ccol]=getSign();
+//					}
+//					else {
+//						newBoard[rrow][ccol]=Signs.EMPTY.toString();
+//					}
+//				}
+//			}
+//			board[0]=new Board(newBoard);
 		}else{
-			String[][] stringBoard = board[moves-1].getBoard();
-			if(stringBoard[row][col]==Signs.EMPTY.toString()) {
-				stringBoard[row][col]=getSign();
-				board[moves] = new Board(stringBoard);
-			}
-			else {
-				//If someone clicks on a cell that there is already a value in it,
-				//it does nothing
-				GeneralUtils.log("GameEngine", "There is already a value to the cell.");
+			board[moves]=board[moves-1].getDeepCopy();
+			if(board[moves].getBoard()[row][col]==Signs.EMPTY.toString()) {
+				board[moves].setSign(row, col, Signs.valueOf(getSign()));
+			}else {
+				GeneralUtils.log("GameEngine", "-"+row+","+col+"-There is already a value to the cell.");
 				return;
 			}
+//			String[][] stringBoard = board[moves-1].getBoard().clone();
+//			if(stringBoard[row][col]==Signs.EMPTY.toString()) {
+//				stringBoard[row][col]=getSign();
+//				board[moves] = new Board(stringBoard);
+//			}
+//			else {
+//				//If someone clicks on a cell that there is already a value in it,
+//				//it does nothing
+//				GeneralUtils.log("GameEngine", "-"+row+","+col+"-There is already a value to the cell.");
+//				return;
+//			}
 		}
 		GeneralUtils.log("GameEngine", "Move:"+moves+"-"+row+","+col);
 		System.out.println(board[moves].toString());
@@ -160,6 +170,9 @@ public class GameEngine {
 		checkBoard();
 		//Increases the move counter
 		moves++;
+//		for (int i=0;i<9;i++) {
+//			System.out.println(i+"-"+getBoard()[i]+" ");
+//		}
 	}
 	
 	/**
@@ -169,19 +182,13 @@ public class GameEngine {
 	 * If the sign is odd the sign is O
 	 * @return String
 	 */
-	private String getSign() {
+	public String getSign() {
 		if(moves%2 == 0){
 			return Signs.X.toString();
 		}	
 		return Signs.O.toString();
 	}
 	
-	public Signs getTurnSign() {
-		if(moves%2 == 0){
-			return Signs.X;
-		}	
-		return Signs.O;
-	}
 	
 	public boolean isGameActive() {
 		return gameActive;
@@ -246,9 +253,14 @@ public class GameEngine {
 	}
 	
 	//Getters And Setters
+	
 
 	public PlayerRoster getPlayerRoster() {
 		return playerRoster;
+	}
+
+	public void setGameActive(boolean gameActive) {
+		this.gameActive = gameActive;
 	}
 
 	public void setPlayerRoster(PlayerRoster playerRoster) {
