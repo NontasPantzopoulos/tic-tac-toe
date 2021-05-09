@@ -46,14 +46,14 @@ public class PlayerAI implements Runnable{
 					this.sign = Signs.X;
 					if(ge.getMoves()==0) {
 											
-						this.aiMove = AlphaBetaPruning.bestMove(ge.getBoard()[0].getDeepCopy(), Signs.X,ge.getMoves());
+						this.aiMove = MiniMax.getBestMove(ge.getBoard()[0].getDeepCopy(), Signs.X);
 						if(aiMove[0]!=-1 || aiMove[1]!=-1) {
 							System.out.println("AI:"+aiMove[0]+","+aiMove[1]);
 							ge.makeMove(aiMove[0], aiMove[1]);
 						}
 					}else {
 
-						this.aiMove = AlphaBetaPruning.bestMove(ge.getBoard()[ge.getMoves()-1].getDeepCopy(), Signs.X,ge.getMoves()-1);
+						this.aiMove = MiniMax.getBestMove(ge.getBoard()[ge.getMoves()-1].getDeepCopy(), Signs.X);
 						if(aiMove[0]!=-1 || aiMove[1]!=-1) {
 							System.out.println("AI:"+aiMove[0]+","+aiMove[1]);
 							ge.makeMove(aiMove[0], aiMove[1]);
@@ -64,14 +64,14 @@ public class PlayerAI implements Runnable{
 					this.sign = Signs.O;
 					if(ge.getMoves()==0) {		
 						
-						this.aiMove = AlphaBetaPruning.bestMove(ge.getBoard()[0].getDeepCopy(), Signs.O,ge.getMoves());
+						this.aiMove = MiniMax.getBestMove(ge.getBoard()[0].getDeepCopy(), Signs.O);
 						if(aiMove[0]!=-1 || aiMove[1]!=-1) {
 							System.out.println("AI:"+aiMove[0]+","+aiMove[1]);
 							ge.makeMove(aiMove[0], aiMove[1]);
 						}
 					}else {
 						
-						this.aiMove = AlphaBetaPruning.bestMove(ge.getBoard()[ge.getMoves()-1].getDeepCopy(), Signs.O,ge.getMoves()-1);
+						this.aiMove = MiniMax.getBestMove(ge.getBoard()[ge.getMoves()-1].getDeepCopy(), Signs.O);
 						if(aiMove[0]!=-1 || aiMove[1]!=-1) {
 							System.out.println("AI:"+aiMove[0]+","+aiMove[1]);
 							ge.makeMove(aiMove[0], aiMove[1]);

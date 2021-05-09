@@ -38,7 +38,7 @@ public class Board implements Cloneable{
 		int nullcounter = 0;
 		for (int row=0;row<3;row++) {
 			for(int col=0;col<3;col++) {
-				if(this.board[row][col]==null) {
+				if(this.board[row][col]==null || this.board[row][col].equals(Signs.EMPTY.toString())) {
 					nullcounter++;
 				}
 			}
@@ -54,7 +54,7 @@ public class Board implements Cloneable{
 		int fullcounter = 0;
 		for (int row=0;row<3;row++) {
 			for(int col=0;col<3;col++) {
-				if(this.board[row][col]!=null) {
+				if(this.board[row][col].equals(Signs.O.toString()) || this.board[row][col].equals(Signs.X.toString())) {
 					fullcounter++;
 				}
 			}
@@ -165,9 +165,7 @@ public class Board implements Cloneable{
 	}
 	
 	public void setSign(int row,int col,Signs sign) {
-		if(this.board[row][col]==Signs.EMPTY.toString()) {
-			this.board[row][col]=sign.toString();
-		}
+		this.board[row][col]=sign.toString();
 		
 	}
 	

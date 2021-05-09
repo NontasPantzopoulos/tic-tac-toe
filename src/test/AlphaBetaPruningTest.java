@@ -15,8 +15,8 @@ public class AlphaBetaPruningTest {
 
 	@Before
 	public void setUpBeforeClass() throws Exception {
-		String[][] stringB3 = {{"_","_","_"},
-								{"_","_","_"},
+		String[][] stringB3 = {{"X","X","O"},
+								{"_","O","_"},
 								{"_","_","_"}};
 		b3 = new Board(stringB3);
 		
@@ -24,7 +24,7 @@ public class AlphaBetaPruningTest {
 
 	@Test
 	public void testBestMove() throws CloneNotSupportedException {
-		int[] bestMove = AlphaBetaPruning.bestMove(b3.getDeepCopy(), Signs.X,0);
+		int[] bestMove = AlphaBetaPruning.bestMove(b3.getDeepCopy(), Signs.X,5);
 		System.out.println(bestMove[0]+","+bestMove[1]);
 	}
 

@@ -5,7 +5,7 @@ import main.tictactoe.model.enums.Signs;
 
 public class AlphaBetaPruning {
 	
-	private static int maxDepth=12;
+	private static int maxDepth=9;
 
 	private AlphaBetaPruning() {
 		
@@ -24,6 +24,7 @@ public class AlphaBetaPruning {
 					int moveValue =alphaBetaPruning(sign,newBoard, Integer.MIN_VALUE, Integer.MAX_VALUE, depth);
 					newBoard.setSign(row, col, Signs.EMPTY);
 					if(moveValue>bestValue) {
+						System.out.println(moveValue);
 						bestMove[0] = row;
                         bestMove[1] = col;
                         bestValue = moveValue;
@@ -40,7 +41,7 @@ public class AlphaBetaPruning {
 		
 		Board myBoard = board.getDeepCopy();
 		if (depth++ == maxDepth) {
-            return score(board);
+            return score(sign, board);
         }
 		
 		if(sign==Signs.X) {
@@ -107,17 +108,23 @@ public class AlphaBetaPruning {
 	}
 	
 	
-	private static int score (Board board) {
+	private static int score (Signs sign,Board board) {
 		System.out.println(board.toString());
-        if (board.isWin(Signs.X.toString())) {
+        if (sign == Signs.X && board.isValid() && board.isWin(Signs.X.toString())) {
         	//System.out.println(1);
             return 1;
-        } else if (board.isWin(Signs.O.toString())) {
+        } else if (sign == Signs.X && board.isValid() && board.isWin(Signs.O.toString())) {
         	//System.out.println(-1);
             return -1;
-        }else {
+        }else if (sign == Signs.O && board.isValid() && board.isWin(Signs.O.toString())){
+        	return 1;
+        	
+        }else if(sign == Signs.O && board.isValid() && board.isWin(Signs.X.toString())) {
+   	
         	//System.out.println(0);
-            return 0;
+            return -1;
+        }else {
+        	return 0;
         }
     }
 	
