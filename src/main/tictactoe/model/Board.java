@@ -164,11 +164,21 @@ public class Board implements Cloneable{
 		return false;
 	}
 	
+	/**
+	 * Sets the sign param to the corresponding position
+	 * @param row The number of the row
+	 * @param col The number of the column
+	 * @param sign The Sign X or O
+	 */
 	public void setSign(int row,int col,Signs sign) {
 		this.board[row][col]=sign.toString();
 		
 	}
 	
+	/**
+	 * Gets a deep copy of the Board
+	 * @return a copy of the Board class
+	 */
 	public Board getDeepCopy () {
         Board board = new Board();
 
@@ -193,6 +203,8 @@ public class Board implements Cloneable{
 		return boardStr.toString();
 	}
 	
+	//Clone method
+	@Override
 	public Object clone() throws CloneNotSupportedException
     {
         return super.clone();

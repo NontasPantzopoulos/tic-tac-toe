@@ -2,6 +2,7 @@ package test;
 
 import static org.junit.Assert.*;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -80,6 +81,11 @@ public class FileHandlerTest {
 		assertEquals("Should have same losses",p6.getLosses(), playerRoster.findPlayerByName("p6").getLosses());
 		assertEquals("Should have same draws",p6.getDraws(), playerRoster.findPlayerByName("p6").getDraws());
 		
+	}
+	
+	@After
+	public void deleteFile() {
+		FileHandler.deletePlayerRosterFile();
 	}
 
 

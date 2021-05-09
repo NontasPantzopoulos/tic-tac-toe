@@ -24,8 +24,9 @@ public class AlphaBetaPruningTest {
 
 	@Test
 	public void testBestMove() throws CloneNotSupportedException {
-		int[] bestMove = AlphaBetaPruning.bestMove(b3.getDeepCopy(), Signs.X,5);
+		int[] bestMove = AlphaBetaPruning.getBestMove(b3,Signs.X);
 		System.out.println(bestMove[0]+","+bestMove[1]);
+		assertArrayEquals(new int[]{2, 0} , bestMove);
 	}
 
 }

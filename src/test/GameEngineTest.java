@@ -39,6 +39,7 @@ public class GameEngineTest {
 		ge.makeMove(2, 2);
 		System.out.println(ge.getMoves());
 		System.out.println(ge.getPlayInfo());
+		assertEquals("Player X is Winner!", ge.getPlayInfo());
 	}
 
 	

@@ -15,17 +15,17 @@ public class BoardTest {
 
 	@Before
 	public void setUp() throws Exception {
-		String[][] stringB1 = {{"X",null,"O"},
-								{"X",null,"O"},
-								{"X",null,"O"}};
+		String[][] stringB1 = {{"X","_","O"},
+								{"X","_","O"},
+								{"X","_","O"}};
 		
-		String[][] stringB2 = {{null,null,"O"},
+		String[][] stringB2 = {{"_","_","O"},
 								{"X","X","O"},
-								{"X",null,null}};
+								{"X","_","_"}};
 		
-		String[][] stringB3 = {{null,null,"O"},
+		String[][] stringB3 = {{"_","_","O"},
 								{"X","X","O"},
-								{"X",null,"O"}};
+								{"X","_","O"}};
 		
 		b1 = new Board(stringB1);
 		b2 = new Board(stringB2);

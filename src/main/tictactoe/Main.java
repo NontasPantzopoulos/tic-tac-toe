@@ -23,12 +23,14 @@ public class Main {
 		//Initializes the main JFrame.
 		new MainWindow(ge);
 		
+		
+		//Starts Mr Bean thread
 		PlayerMrBeanThread pb =new PlayerMrBeanThread(ge);
 		Thread mrBeanThread = new Thread(pb);
 		mrBeanThread.setName("mrBeanThread");
 		mrBeanThread.start();
 		
-		
+		//Starts AI (Hal) thread
 		PlayerAI ai = new PlayerAI(ge);
 		Thread aiThread = new Thread(ai);
 		aiThread.setName("AIThread");

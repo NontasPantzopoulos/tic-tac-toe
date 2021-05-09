@@ -4,9 +4,11 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import main.tictactoe.io.FileHandler;
 import main.tictactoe.model.Player;
 import main.tictactoe.model.PlayerRoster;
 
@@ -88,6 +90,11 @@ public class PlayerRosterTest {
 			System.out.println("Testing Player:"+players[i].getName()+" Score"+players[i].getScore());
 		}
 	
+	}
+	
+	@After
+	public void deleteFile() {
+		FileHandler.deletePlayerRosterFile();
 	}
 	
 	

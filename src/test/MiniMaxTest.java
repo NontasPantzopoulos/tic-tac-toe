@@ -23,7 +23,8 @@ public class MiniMaxTest {
 								{"_","_","_"}};
 		b = new Board(stringB3);
 		int[] bestMove = MiniMax.getBestMove(b,Signs.X);
-		System.out.println(bestMove[0]+","+bestMove[1]);
+		System.out.println("The Best Move is: "+bestMove[0]+","+bestMove[1]);
+		assertArrayEquals(new int[]{2, 0} , bestMove);
 	}
 
 }

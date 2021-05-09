@@ -54,6 +54,15 @@ public class FileHandler {
         }
 		
 	}
+	
+	public static void deletePlayerRosterFile() {
+		File pr = new File(userPath);
+		if (pr.delete()) { 
+			GeneralUtils.log("FileHandler", "Deleted File "+userPath);
+		} else {
+		    GeneralUtils.log("FileHandler", "Failed to delete file "+userPath);
+		} 
+	}
 
 	public static String getUserpath() {
 		return userPath;

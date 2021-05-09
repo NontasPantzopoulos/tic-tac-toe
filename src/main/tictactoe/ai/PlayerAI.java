@@ -1,17 +1,22 @@
 package main.tictactoe.ai;
 
-import main.tictactoe.model.Board;
 import main.tictactoe.model.GameEngine;
-import main.tictactoe.model.Player;
 import main.tictactoe.model.enums.Signs;
 import main.tictactoe.utils.GeneralUtils;
 
+/**
+ * The AI thread class
+ * It checks if it is his turn every 500 milliseconds 
+ * and depending on the side it plays accordingly.
+ * The AI is using the alpha beta pruning algorithm. 
+ * 
+ */
 public class PlayerAI implements Runnable{
 	private GameEngine ge;
 	
 	private Signs sign;
 	private boolean play=true;
-	private static final long SLEEP_TIME=1000;
+	private static final long SLEEP_TIME=500;
 	private int [] aiMove;
 	
 	
@@ -27,16 +32,15 @@ public class PlayerAI implements Runnable{
 	public void run() {
 		GeneralUtils.log("PlayerAI", "Thread started...");
 		try {
-			//ge.setGameActive(true);
 			aiMoves();
-		} catch (InterruptedException | CloneNotSupportedException e) {
+		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 		GeneralUtils.log("PlayerAI", "Thread ended...");
 		
 	}
 	
-	private void aiMoves() throws InterruptedException, CloneNotSupportedException  {
+	private void aiMoves() throws InterruptedException  {
 		while(play) {
 			
 			
@@ -46,14 +50,14 @@ public class PlayerAI implements Runnable{
 					this.sign = Signs.X;
 					if(ge.getMoves()==0) {
 											
-						this.aiMove = MiniMax.getBestMove(ge.getBoard()[0].getDeepCopy(), Signs.X);
+						this.aiMove = AlphaBetaPruning.getBestMove(ge.getBoard()[0].getDeepCopy(), sign);
 						if(aiMove[0]!=-1 || aiMove[1]!=-1) {
 							System.out.println("AI:"+aiMove[0]+","+aiMove[1]);
 							ge.makeMove(aiMove[0], aiMove[1]);
 						}
 					}else {
 
-						this.aiMove = MiniMax.getBestMove(ge.getBoard()[ge.getMoves()-1].getDeepCopy(), Signs.X);
+						this.aiMove = AlphaBetaPruning.getBestMove(ge.getBoard()[ge.getMoves()-1].getDeepCopy(), sign);
 						if(aiMove[0]!=-1 || aiMove[1]!=-1) {
 							System.out.println("AI:"+aiMove[0]+","+aiMove[1]);
 							ge.makeMove(aiMove[0], aiMove[1]);
@@ -64,14 +68,14 @@ public class PlayerAI implements Runnable{
 					this.sign = Signs.O;
 					if(ge.getMoves()==0) {		
 						
-						this.aiMove = MiniMax.getBestMove(ge.getBoard()[0].getDeepCopy(), Signs.O);
+						this.aiMove = AlphaBetaPruning.getBestMove(ge.getBoard()[0].getDeepCopy(), sign);
 						if(aiMove[0]!=-1 || aiMove[1]!=-1) {
 							System.out.println("AI:"+aiMove[0]+","+aiMove[1]);
 							ge.makeMove(aiMove[0], aiMove[1]);
 						}
 					}else {
 						
-						this.aiMove = MiniMax.getBestMove(ge.getBoard()[ge.getMoves()-1].getDeepCopy(), Signs.O);
+						this.aiMove = AlphaBetaPruning.getBestMove(ge.getBoard()[ge.getMoves()-1].getDeepCopy(), sign);
 						if(aiMove[0]!=-1 || aiMove[1]!=-1) {
 							System.out.println("AI:"+aiMove[0]+","+aiMove[1]);
 							ge.makeMove(aiMove[0], aiMove[1]);
