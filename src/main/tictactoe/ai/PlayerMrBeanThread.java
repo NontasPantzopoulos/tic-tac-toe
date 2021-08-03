@@ -72,6 +72,8 @@ public class PlayerMrBeanThread implements Runnable{
 	public void setPlay(boolean play) {
 		this.play = play;
 	}
+
+	
 		
 		
 	

@@ -144,6 +144,8 @@ public class GameEngine {
 //				}
 //			}
 //			board[0]=new Board(newBoard);
+			
+			
 		}else{
 			board[moves]=board[moves-1].getDeepCopy();
 			if(board[moves].getBoard()[row][col]==Signs.EMPTY.toString()) {
